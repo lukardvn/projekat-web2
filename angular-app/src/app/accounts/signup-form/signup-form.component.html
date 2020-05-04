@@ -1,35 +1,130 @@
-<form [formGroup]="form" (ngSubmit)="login()">
-    <div *ngIf="form.errors" class="alert alert-danger">
-        Username/Password invalid.
-    </div>
-    <div formGroupName="account">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input 
-                formControlName="username"
-                id="username"
-                type="text" 
-                class="form-control">
-            <div *ngIf="username.pending">
-                <i class="fas fa-spinner"></i>
-                Checking...
-            </div>
-            <div *ngIf="username.touched && username.invalid" class="alert alert-danger">
-                <div *ngIf="username.errors.required">Username is required.</div>
-                <div *ngIf="username.errors.minlength">Username should be minimum {{username.errors.minlength.requiredLength}} characters.</div>
-                <div *ngIf="username.errors.cannotContainSpace">Username cannot contain any spaces.</div>
-                <div *ngIf="username.errors.shouldBeUnique">Username cannot be Luka.</div>
-            </div>
+<div class="text-center" >
+  <form class="form-signin" [formGroup]="form" (ngSubmit)="signUp()">
+        <div *ngIf="form.errors" class="alert alert-danger">
+            Invalid input.
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input 
-                formControlName="password"
-                id="password"
-                type="text" 
-                class="form-control">
-            <div *ngIf="password.touched && password.invalid" class="alert alert-danger">Password is required.</div>
+      <i class="fas fa-user-astronaut fa-3x"></i>
+      <h1 class="h3 mb-3 font-weight-normal">register</h1>
+
+      <div class="form-group">
+        <label for="email" class="sr-only">Email address</label>
+        <input 
+            formControlName="email"
+            id="email" 
+            type="email"
+            class="form-control" 
+            placeholder="e-mail" 
+            required 
+            >
+        <div *ngIf="f.email.pending">
+            <i class="fas fa-spinner"></i>
+            Checking...
         </div>
-    </div>
-    <button class="btn btn-primary" type="submit">Sign Up</button>
-</form>
+        <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-warning">
+            <div *ngIf="f.email.errors.required">Email is required.</div>
+            <div *ngIf="f.email.errors.minlength">Email should be minimum {{f.email.errors.minlength.requiredLength}} characters.</div>
+            <div *ngIf="f.email.errors.cannotContainSpace">Email cannot contain any spaces.</div>
+            <div *ngIf="f.email.errors.email">Wrong email format. Must be example@domain.com</div>
+            <div *ngIf="f.email.errors.shouldBeUnique">Email cannot be Luka.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password" class="sr-only">Password</label>
+        <input 
+            formControlName="password"
+            type="password" 
+            id="password" 
+            class="form-control" 
+            placeholder="password" 
+            required>
+        <div *ngIf="f.password.touched && f.password.invalid" class="alert alert-warning">Password is required.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword" class="sr-only">Confirm password</label>
+        <input 
+            formControlName="confirmPassword"
+            type="password" 
+            id="confirmPassword" 
+            class="form-control" 
+            placeholder="confirm password" 
+            required>
+        <div *ngIf="f.confirmPassword.touched && f.confirmPassword.invalid" class="alert alert-warning">
+          <div *ngIf="f.confirmPassword.errors.required">Confirmed password is required.</div>
+          <div *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="name" class="sr-only">Name</label>
+        <input 
+            formControlName="name"
+            id="name" 
+            type="text"
+            class="form-control" 
+            placeholder="name" 
+            required 
+            >
+        <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-warning">
+            Name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="lastname" class="sr-only">Last name</label>
+        <input 
+            formControlName="lastname"
+            id="lastname" 
+            type="text"
+            class="form-control" 
+            placeholder="last name" 
+            required 
+            >
+        <div *ngIf="f.lastname.touched && f.lastname.invalid" class="alert alert-warning">
+            Last name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="city" class="sr-only">City</label>
+        <input 
+            formControlName="city"
+            id="city" 
+            type="text"
+            class="form-control" 
+            placeholder="city" 
+            required 
+            >
+        <div *ngIf="f.city.touched && f.city.invalid" class="alert alert-warning">
+            City is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone" class="sr-only">Phone number</label>
+        <input 
+            formControlName="phone"
+            id="phone" 
+            autocomplete="off"
+            type="text"
+            appPhoneFormat
+            class="form-control" 
+            placeholder="phone" 
+            required 
+            >
+        <div *ngIf="f.phone.touched && f.phone.invalid" class="alert alert-warning">
+            <div *ngIf="f.phone.errors.required">Phone number is required.</div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <button class="btn btn-lg btn-info btn-block" [disabled]="!form.valid">Sign Up</button>
+        </div>
+        <div class="col-4">
+          <button type="button" class="btn btn-lg btn-danger btn-block" (click)="resetForm()">Reset</button>  
+        </div>
+      </div>
+    <p class="mt-5 mb-3 text-muted">&copy; PUSGS 2020</p>
+  </form>
+</div>

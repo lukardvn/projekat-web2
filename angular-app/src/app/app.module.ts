@@ -10,13 +10,18 @@ import { SignupFormComponent } from './accounts/signup-form/signup-form.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsNavbarComponent } from './common/bs-navbar/bs-navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PhoneFormatDirective } from './accounts/phone-format.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     StudentComponent,
     SignupFormComponent,
-    BsNavbarComponent
+    BsNavbarComponent,
+    PhoneFormatDirective
+  ],
+  exports: [
+    PhoneFormatDirective
   ],
   imports: [
     BrowserModule,
