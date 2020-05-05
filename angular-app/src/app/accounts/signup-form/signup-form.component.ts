@@ -34,7 +34,6 @@ export class SignupFormComponent implements OnInit{
   //samo za demonstraciju
   signUp() {
     console.log(this.form.value);
-    console.log(this.form.value.phone.length);
     //this.form.setErrors({
      // invalidLogin: true
     //});

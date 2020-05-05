@@ -22,9 +22,7 @@
         </div>
         <div *ngIf="f.email.touched && f.email.invalid" class="alert alert-warning">
             <div *ngIf="f.email.errors.required">Email is required.</div>
-            <div *ngIf="f.email.errors.minlength">Email should be minimum {{f.email.errors.minlength.requiredLength}} characters.</div>
-            <div *ngIf="f.email.errors.cannotContainSpace">Email cannot contain any spaces.</div>
-            <div *ngIf="f.email.errors.email">Wrong email format. Must be example@domain.com</div>
+            <div *ngIf="f.email.errors.email">Email format must be example@domain.com</div>
             <div *ngIf="f.email.errors.shouldBeUnique">Email cannot be Luka.</div>
         </div>
       </div>

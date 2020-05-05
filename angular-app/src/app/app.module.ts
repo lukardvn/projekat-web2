@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsNavbarComponent } from './common/bs-navbar/bs-navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PhoneFormatDirective } from './accounts/phone-format.directive';
+import { LoginFormComponent } from './accounts/login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PhoneFormatDirective } from './accounts/phone-format.directive';
     StudentComponent,
     SignupFormComponent,
     BsNavbarComponent,
-    PhoneFormatDirective
+    PhoneFormatDirective,
+    LoginFormComponent
   ],
   exports: [
     PhoneFormatDirective
