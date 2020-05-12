@@ -12,6 +12,7 @@ import { BsNavbarComponent } from './common/bs-navbar/bs-navbar.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PhoneFormatDirective } from './accounts/phone-format.directive';
 import { LoginFormComponent } from './accounts/login-form/login-form.component';
+import { EditProfileComponent } from './accounts/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoginFormComponent } from './accounts/login-form/login-form.component';
     SignupFormComponent,
     BsNavbarComponent,
     PhoneFormatDirective,
-    LoginFormComponent
+    LoginFormComponent,
+    EditProfileComponent
   ],
   exports: [
     PhoneFormatDirective
