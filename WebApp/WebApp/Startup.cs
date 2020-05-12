@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WebApp.Data;
+using WebApp.Services.UserService;
 
 namespace WebApp
 {
@@ -58,6 +59,7 @@ namespace WebApp
                         ValidateAudience = false
                     };
                 });
+            services.AddScoped<IUserService, UserService>();
 
         }
 

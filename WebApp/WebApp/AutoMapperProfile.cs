@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Dtos.User;
 using WebApp.Models;
 
 namespace WebApp
@@ -11,6 +12,8 @@ namespace WebApp
     {
         public AutoMapperProfile()
         {
+            CreateMap<User, GetUserDto>();
+            CreateMap<AddUserDto, User>();
         }
     }
 }
