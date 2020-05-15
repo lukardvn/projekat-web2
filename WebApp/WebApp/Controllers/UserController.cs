@@ -38,7 +38,7 @@ namespace WebApp.Controllers
             return Ok(await _userService.AddUser(newUser));
         }
 
-        [HttpPut] // PUT /Use
+        [HttpPut] // PUT /User
         public async Task<IActionResult> Updateuser(UpdateUserDto updatedUser)
         {
             ServiceResponse<GetUserDto> response = await _userService.UpdateUser(updatedUser);
@@ -48,7 +48,7 @@ namespace WebApp.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] //DELETE User/x
         public async Task<IActionResult> Delete(int id)
         {
             ServiceResponse<List<GetUserDto>> response = await _userService.DeleteUser(id);

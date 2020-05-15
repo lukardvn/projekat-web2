@@ -14,7 +14,6 @@ export class StudentService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {
-    console.log("ovde udje, sve ok");
     return this.http.get<any>(`${this.baseUrl}${this.apiRoute}`);
   }
 }

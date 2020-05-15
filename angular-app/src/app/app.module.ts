@@ -1,3 +1,4 @@
+import { UserService } from './services/user.service';
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { StudentService } from './services/student.service';
@@ -13,6 +14,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PhoneFormatDirective } from './accounts/phone-format.directive';
 import { LoginFormComponent } from './accounts/login-form/login-form.component';
 import { EditProfileComponent } from './accounts/edit-profile/edit-profile.component';
+import { ListUsersComponent } from './accounts/list-users/list-users.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { EditProfileComponent } from './accounts/edit-profile/edit-profile.compo
     BsNavbarComponent,
     PhoneFormatDirective,
     LoginFormComponent,
-    EditProfileComponent
+    EditProfileComponent,
+    ListUsersComponent,
   ],
   exports: [
     PhoneFormatDirective
@@ -33,10 +36,10 @@ import { EditProfileComponent } from './accounts/edit-profile/edit-profile.compo
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    NgbModule
-  ],
+    NgbModule  ],
   providers: [
-    StudentService
+    StudentService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

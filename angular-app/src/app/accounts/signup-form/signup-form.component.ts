@@ -1,6 +1,9 @@
+import { UserService } from 'src/app/services/user.service';
 import { SignUpFormValidators } from './signup-form.validators';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { User } from 'src/models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'signup-form',
@@ -10,7 +13,9 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 export class SignupFormComponent implements OnInit{
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder, 
+              private userService: UserService,
+              private router: Router) { 
  }
 
   ngOnInit() {
@@ -33,10 +38,14 @@ export class SignupFormComponent implements OnInit{
 
   //samo za demonstraciju
   signUp() {
-    console.log(this.form.value);
+    //console.log(this.form.value); //ovo this.form.value treba sada kastovati u User i nad tim userom pozvati post
     //this.form.setErrors({
      // invalidLogin: true
     //});
+    this.userService.addSingle(this.form.value).subscribe(result => {
+      console.log(result);
+    });
+    this.router.navigateByUrl('/list-users');
   }
 
   resetForm() {

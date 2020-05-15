@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { StudentService } from './../services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { Student } from '../Student';
@@ -15,10 +14,9 @@ export class StudentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("ONINIT");
     this.studentService.getAll().subscribe(result => {
-      console.log("SABSKRAJBBB");
       this.students = [...result];
+      console.log(this.students);
     }, err => {console.log(err)});
   }
 
