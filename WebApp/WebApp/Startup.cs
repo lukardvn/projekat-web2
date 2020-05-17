@@ -42,6 +42,7 @@ namespace WebApp
                         {
                             builder.WithOrigins("http://localhost:4200");
                             builder.AllowAnyHeader();
+                            builder.AllowAnyMethod();
                         });
                 });
             services.AddControllers();

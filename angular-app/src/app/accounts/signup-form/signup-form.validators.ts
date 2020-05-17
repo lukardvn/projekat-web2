@@ -1,3 +1,5 @@
+import { UserService } from 'src/app/services/user.service';
+import { User } from './../../../models/User';
 import { AbstractControl, ValidationErrors, FormGroup } from '@angular/forms';
 
 export class SignUpFormValidators {
@@ -15,6 +17,14 @@ export class SignUpFormValidators {
                 if (control.value == 'Luka')
                     resolve ({ shouldBeUnique: true });
                 else resolve (null);
+                //PROBA DA LI USERNAME POSTOJI ASYNC
+                /*let userService: UserService;
+                let exists = userService.userExists(control.value).subscribe(result => {
+                    console.log(result);
+                });
+                if (exists)
+                    resolve ({ shouldBeUnique: true });
+                else resolve (null);*/
             }, 2000);
         });  
     }

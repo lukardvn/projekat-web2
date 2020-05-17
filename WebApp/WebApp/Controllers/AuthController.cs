@@ -35,6 +35,13 @@ namespace WebApp.Controllers
             return Ok(response);
         }
 
+        [HttpGet("AlreadyExists/{email}")]
+        public async Task<IActionResult> AlreadyExists(string usernameToCheck)
+        {
+            bool response = await _authRepo.UserExists(usernameToCheck);
+            return Ok(response);
+        }
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login(UserLoginDto request)
         {

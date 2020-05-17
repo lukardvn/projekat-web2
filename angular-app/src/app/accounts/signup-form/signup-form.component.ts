@@ -26,9 +26,9 @@ export class SignupFormComponent implements OnInit{
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       name: ['', Validators.required],
-      lastname: ['', Validators.required],
+      surname: ['', Validators.required],
       city: ['', Validators.required],
-      phone: ['', Validators.required]
+      phoneNumber: ['', Validators.required]
     }, {
       validator: SignUpFormValidators.ConfirmedPassword('password', 'confirmPassword')    
     });
@@ -36,20 +36,28 @@ export class SignupFormComponent implements OnInit{
 
   get f() { return this.form.controls; }
 
-  //samo za demonstraciju
   signUp() {
-    //console.log(this.form.value); //ovo this.form.value treba sada kastovati u User i nad tim userom pozvati post
     //this.form.setErrors({
      // invalidLogin: true
     //});
-    this.userService.addSingle(this.form.value).subscribe(result => {
-      console.log(result);
+    let newUser = new User({
+      ...this.form.value
     });
+
+    //ako je result.success === false onda korisnik vec postoji
+    this.userService.registerSingle(newUser).subscribe(() => {
+      this.userService.getAll().subscribe
+    });
+
     this.router.navigateByUrl('/list-users');
   }
 
-  resetForm() {
+  resetForm() { //u komentaru je proba provere da li username postoji async
     this.form.reset();
+    
+    /*this.userService.userExists(this.form.value.email).subscribe(result => {
+      console.log(result);
+    })*/
   }
   //poziv serveru preko servisa koji vraca true ili false
   /*signUp() {

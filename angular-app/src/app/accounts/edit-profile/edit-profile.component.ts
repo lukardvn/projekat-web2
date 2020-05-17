@@ -50,6 +50,21 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
+  saveChanges() {
+    this.setProperties();
+    /*this.user = new User({
+      ...this.form.value
+    });*/
+    this.userService.updateSingle(this.user).subscribe();
+  }
+
+  setProperties(){
+    this.user.email = this.form.value.email;
+    this.user.name = this.form.value.name;
+    this.user.surname = this.form.value.surname;
+    this.user.city = this.form.value.city;
+  }
+
   get f() {
     return this.form.controls;
   }

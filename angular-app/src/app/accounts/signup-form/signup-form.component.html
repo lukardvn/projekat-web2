@@ -70,16 +70,16 @@
       </div>
 
       <div class="form-group">
-        <label for="lastname" class="sr-only">Last name</label>
+        <label for="surname" class="sr-only">Last name</label>
         <input 
-            formControlName="lastname"
-            id="lastname" 
+            formControlName="surname"
+            id="surname" 
             type="text"
             class="form-control" 
             placeholder="last name" 
             required 
             >
-        <div *ngIf="f.lastname.touched && f.lastname.invalid" class="alert alert-warning">
+        <div *ngIf="f.surname.touched && f.surname.invalid" class="alert alert-warning">
             Last name is required.
         </div>
       </div>
@@ -100,19 +100,19 @@
       </div>
 
       <div class="form-group">
-        <label for="phone" class="sr-only">Phone number</label>
+        <label for="phoneNumber" class="sr-only">Phone number</label>
         <input 
-            formControlName="phone"
-            id="phone" 
+            formControlName="phoneNumber"
+            id="phoneNumber" 
             autocomplete="off"
             type="text"
             appPhoneFormat
             class="form-control" 
-            placeholder="phone" 
+            placeholder="phoneNumber" 
             required 
             >
-        <div *ngIf="f.phone.touched && f.phone.invalid" class="alert alert-warning">
-            <div *ngIf="f.phone.errors.required">Phone number is required.</div>
+        <div *ngIf="f.phoneNumber.touched && f.phoneNumber.invalid" class="alert alert-warning">
+            <div *ngIf="f.phoneNumber.errors.required">Phone number is required.</div>
         </div>
       </div>
       <div class="row">
