@@ -19,16 +19,26 @@ export class ListUsersComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getAll().subscribe(result => {
       this.users = [...result.data];
+      console.log(this.users);
     }, err => {console.log(err)});
   }
 
   delete(id: number) {  //subscribe unutar subscribe-a da bi bio realtime update liste
+    //console.log(this.users);
+    //let index = this.users.findIndex(u=>u.id == id);
+    //console.log(index);
     this.userService.deleteSingle(id).subscribe(result => {
-      this.users.splice(id, 1);
-
-      this.userService.getAll().subscribe(result => {
-        this.users = [...result.data];
-      })
+      //this.users.splice(id, 1);
+      //console.log(id);
+      //let index = this.users.findIndex(u=>u.Id == id);
+      //console.log(index);
+      this.users = [...result.data];
+      //console.log(this.users);
+      //this.users.splice(id,1);
+      //console.log(this.users);
+      // this.userService.getAll().subscribe(result => {
+      //   this.users = [...result.data];
+      // });
     });
   }
   

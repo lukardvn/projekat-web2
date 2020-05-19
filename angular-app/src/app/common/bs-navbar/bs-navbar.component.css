@@ -1,3 +1,7 @@
 .dropdown-toggle {
     cursor: pointer;
 }
+
+.navbar {
+    height: 8%;
+}

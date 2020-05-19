@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SignupFormComponent implements OnInit{
   form: FormGroup = new FormGroup({});
+  userExists: boolean = false;
 
   constructor(private fb: FormBuilder, 
               private userService: UserService,
@@ -46,9 +47,12 @@ export class SignupFormComponent implements OnInit{
 
     //ako je result.success === false onda korisnik vec postoji
     this.userService.registerSingle(newUser).subscribe(() => {
-      this.userService.getAll().subscribe
+      //this.userService.getAll().subscribe
+      this.userExists = false;
+    }, err=>{
+      console.log(err.error.message);
+      this.userExists = true;
     });
-
     this.router.navigateByUrl('/list-users');
   }
 

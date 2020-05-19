@@ -15,6 +15,7 @@ import { PhoneFormatDirective } from './accounts/phone-format.directive';
 import { LoginFormComponent } from './accounts/login-form/login-form.component';
 import { EditProfileComponent } from './accounts/edit-profile/edit-profile.component';
 import { ListUsersComponent } from './accounts/list-users/list-users.component';
+import { FlightSearchComponent } from './flights/flight-search/flight-search.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ListUsersComponent } from './accounts/list-users/list-users.component';
     LoginFormComponent,
     EditProfileComponent,
     ListUsersComponent,
+    FlightSearchComponent,
   ],
   exports: [
     PhoneFormatDirective

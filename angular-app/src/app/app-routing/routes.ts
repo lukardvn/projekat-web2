@@ -1,3 +1,4 @@
+import { FlightSearchComponent } from './../flights/flight-search/flight-search.component';
 import { ListUsersComponent } from './../accounts/list-users/list-users.component';
 import { StudentComponent } from './../student/student.component';
 import { EditProfileComponent } from '../accounts/edit-profile/edit-profile.component';
@@ -11,5 +12,6 @@ export const routes: Routes = [
     { path: 'edit-profile/:id', component: EditProfileComponent },
     { path: 'edit-profile', component: EditProfileComponent },
     { path: 'students', component: StudentComponent},
-    { path: 'list-users', component: ListUsersComponent}
+    { path: 'list-users', component: ListUsersComponent},
+    { path: 'flights', component: FlightSearchComponent}
 ];

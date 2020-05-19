@@ -49,6 +49,6 @@ export class UserService {
 
   //PROBA: da li username vec postoji
   userExists(email: string) {
-    return this.http.get<boolean>(`${this.baseUrl}${this.authRoute}/AlreadyExists/${email}`);
+    return this.http.get(`${this.baseUrl}${this.authRoute}/AlreadyExists/${email}`);
   }
 }
