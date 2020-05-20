@@ -20,25 +20,25 @@ namespace WebApp.Controllers
             _userService = userService;
         }
 
-        [HttpGet("GetAll")] // /User/GetAll
+        [HttpGet("GetAll")] // localhost/User/GetAll
         public async Task<IActionResult> Get()
         {
             return Ok(await _userService.GetAllUsers());
         }
 
-        [HttpGet("{id}")] // /User/x
+        [HttpGet("{id}")] // localhost/User/x
         public async Task<IActionResult> GetSingle(int id)
         {
             return Ok(await _userService.GetUserById(id));
         }
 
-        [HttpPost]  // POST /User
+        [HttpPost]  // POST localhost/User
         public async Task<IActionResult> AddUser(AddUserDto newUser)
         {
             return Ok(await _userService.AddUser(newUser));
         }
 
-        [HttpPut] // PUT /User
+        [HttpPut] // PUT localhost/User
         public async Task<IActionResult> Updateuser(UpdateUserDto updatedUser)
         {
             ServiceResponse<GetUserDto> response = await _userService.UpdateUser(updatedUser);
@@ -48,7 +48,7 @@ namespace WebApp.Controllers
             return Ok(response);
         }
 
-        [HttpDelete("{id}")] //DELETE User/x
+        [HttpDelete("{id}")] //DELETE localhost/User/x
         public async Task<IActionResult> Delete(int id)
         {
             ServiceResponse<List<GetUserDto>> response = await _userService.DeleteUser(id);

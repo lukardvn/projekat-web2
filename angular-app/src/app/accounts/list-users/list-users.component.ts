@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/models/User';
 import { Observable } from 'rxjs';
 

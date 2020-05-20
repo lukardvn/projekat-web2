@@ -1,4 +1,4 @@
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 import { SignUpFormValidators } from './signup-form.validators';
 import { Component, OnInit, ɵConsole } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';

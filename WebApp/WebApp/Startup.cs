@@ -17,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WebApp.Data;
+using WebApp.Services.FlightService;
 using WebApp.Services.UserService;
 
 namespace WebApp
@@ -62,6 +63,7 @@ namespace WebApp
                     };
                 });
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IFlightService, FlightService>();
 
         }
 

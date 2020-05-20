@@ -9,19 +9,31 @@
             <div class="container">
                 <div class="row">
                     <div class="booking-form">
-                        <form>
+                        <form [formGroup]="form" (ngSubmit)="showFlights()">
                             <div class="form-group">
                                 <div class="form-checkbox">
                                     <label for="roundtrip">
-                                        <input checked type="radio" id="roundtrip" name="flight-type">
+                                        <input formControlName="tripType"
+                                               value="roundtrip" 
+                                               checked type="radio" 
+                                               id="roundtrip" 
+                                               name="tripType">
                                         <span></span>Roundtrip
                                     </label>
-                                    <label for="one-way">
-                                        <input type="radio" id="one-way" name="flight-type">
+                                    <label for="oneway">
+                                        <input formControlName="tripType" 
+                                               value="oneway" 
+                                               type="radio" 
+                                               id="oneway" 
+                                               name="tripType">
                                         <span></span>One way
                                     </label>
-                                    <label for="multi-city">
-                                        <input type="radio" id="multi-city" name="flight-type">
+                                    <label for="multicity">
+                                        <input formControlName="tripType" 
+                                               value="multicity" 
+                                               type="radio" 
+                                               id="multicity" 
+                                               name="tripType">
                                         <span></span>Multi-City
                                     </label>
                                 </div>
@@ -31,13 +43,25 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label">Flying from</span>
-                                        <input type="text" class="form-control" placeholder="City or airport">
+                                        <input formControlName="origin" 
+                                               type="text" 
+                                               class="form-control" 
+                                               placeholder="City or airport" required>
+                                        <div *ngIf="f.origin.touched && f.origin.invalid" class="alert alert-warning">
+                                            Where are you flying from?   
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <span class="form-label">Flying to</span>
-                                        <input type="text" class="form-control" placeholder="City or airport">
+                                        <input formControlName="destination" 
+                                               type="text" 
+                                               class="form-control" 
+                                               placeholder="City or airport" required>
+                                        <div *ngIf="f.destination.touched && f.destination.invalid" class="alert alert-warning">
+                                                Where are you flying to?   
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -46,23 +70,35 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <span class="form-label">Departing</span>
-                                        <input type="date" class="form-control" required>
+                                        <input formControlName="depart" 
+                                               type="date" 
+                                               class="form-control" required>
+                                        <div *ngIf="f.depart.touched && f.depart.invalid" class="alert alert-warning">
+                                            required
+                                        </div>   
                                     </div>
                                 </div>
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <span class="form-label">Returning</span>
-                                        <input type="date" class="form-control" required>
+                                        <input formControlName="return" 
+                                               type="date" 
+                                               class="form-control" required>
+                                        <div *ngIf="f.return.touched && f.return.invalid" class="alert alert-warning">
+                                            required 
+                                        </div> 
                                     </div>
                                 </div>
+
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <span class="form-label">Adults(18+)</span>
-                                        <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
+                                        <select formControlName="numberOfAdults" class="form-control">
+                                            <option value="1" selected>1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
                                         </select>
                                         <span class="select-arrow"></span>
                                     </div>
@@ -70,11 +106,12 @@
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <span class="form-label">Children</span>
-                                        <select class="form-control">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
+                                        <select formControlName="numberOfChildren" class="form-control">
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
                                         </select>
                                         <span class="select-arrow"></span>
                                     </div>
@@ -84,17 +121,17 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <span class="form-label">Class</span>
-                                        <select class="form-control">
-                                            <option>Economy</option>
-                                            <option>Business</option>
-                                            <option>First Class</option> 
+                                        <select formControlName="class" class="form-control">
+                                            <option value="economy" selected="selected">Economy</option>
+                                            <option value="business">Business</option>
+                                            <option value="firstclass">First Class</option> 
                                         </select>
                                         <span class="select-arrow"></span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-btn">
-                                        <button class="submit-btn">
+                                        <button type="submit" [disabled]="!form.valid" class="submit-btn">
                                             Show Flights
                                         </button>
                                     </div>
