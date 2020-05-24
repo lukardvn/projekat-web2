@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/models/User';
+import { RequestOptions } from '@angular/http';
+import { Headers } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,20 @@ export class UserService {
   baseUrl = "https://localhost:44383";
   userRoute = "/User";
   authRoute = "/Auth";
+  headers = { 'content-type': 'application/json' }
 
   constructor(private http: HttpClient) { }
+
+  //samo admin moze da cita sve usere
+  get() {
+    let headers = new Headers();
+    let token = localStorage.getItem('token');
+    headers.append('Authorization', 'Bearer ' + token);
+    let options = new RequestOptions({ headers: headers });
+
+    //return this.http.get<any>(`${this.baseUrl}${this.userRoute}/GetAll`, options);
+  }
+
 
   getAll(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}${this.userRoute}/GetAll`);
@@ -21,25 +35,14 @@ export class UserService {
     return this.http.get<any>(`${this.baseUrl}${this.userRoute}/${id}`);
   }
 
-  /*addSingle(user: User): Observable<any> {
-    const headers = { 'content-type': 'application/json' }
-    const body = JSON.stringify(user);
-    
-    return this.http.post(this.baseUrl + this.apiControllerRoute, body, {'headers': headers });
-  }*/
-
   registerSingle(user: User) : Observable<any> {
-    const headers = { 'content-type': 'application/json' }
     const body = JSON.stringify(user);
-
-    return this.http.post(this.baseUrl + this.authRoute + "/Register", body, {'headers': headers });
+    return this.http.post(this.baseUrl + this.authRoute + "/Register", body, {'headers': this.headers });
   }
 
   updateSingle(user: User) {  //kod patcha se salju samo property koji treba da se modifikuju
     const body = JSON.stringify(user);
-    const headers = { 'content-type': 'application/json' }
-    
-    return this.http.put<any>(`${this.baseUrl}${this.userRoute}`, body, {'headers': headers});
+    return this.http.put<any>(`${this.baseUrl}${this.userRoute}`, body, {'headers': this.headers});
   }
 
   deleteSingle(id: number) {

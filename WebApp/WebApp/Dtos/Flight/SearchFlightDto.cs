@@ -11,7 +11,7 @@ namespace WebApp.Dtos.Flight
         public string Origin { get; set; }
         public string Destination { get; set; }
         public DateTime Depart { get; set; }
-        public DateTime Return { get; set; }
+        public DateTime? Return { get; set; }
         public string NumberOfAdults { get; set; }
         public string NumberOfChildren { get; set; }
         public string Class { get; set; }

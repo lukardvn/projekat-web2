@@ -7,8 +7,15 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FlightService {
-  baseUrl = "https://localhost:44383";
-  flightRoute = "/Flights";
+  public departingFlights: Flight[];
+  public returningFlights: Flight[];
+
+  public departId: number = 0;
+  public returnId: number = 0;
+
+  private baseUrl = "https://localhost:44383";
+  private flightRoute = "/Flights";
+  private headers = { 'content-type': 'application/json' };
 
   constructor(private http: HttpClient) { }
 
@@ -18,9 +25,6 @@ export class FlightService {
   
   getFiltered(filter: any): Observable<any> {
     const body = JSON.stringify(filter);
-    console.log(body);
-    const headers = { 'content-type': 'application/json' }
-    return this.http.post(`${this.baseUrl}${this.flightRoute}/GetFiltered`, body, {'headers': headers});
+    return this.http.post(`${this.baseUrl}${this.flightRoute}/GetFiltered`, body, {'headers': this.headers});
   }
-
 }

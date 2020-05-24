@@ -63,6 +63,7 @@ export class SignupFormComponent implements OnInit{
       console.log(result);
     })*/
   }
+  
   //poziv serveru preko servisa koji vraca true ili false
   /*signUp() {
     let isValid = authService.login(this.form.value);

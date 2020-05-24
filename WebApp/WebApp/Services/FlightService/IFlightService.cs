@@ -12,6 +12,6 @@ namespace WebApp.Services.FlightService
         Task<ServiceResponse<List<Flight>>> GetAllFlights();
         Task<ServiceResponse<Flight>> GetFlightById(int id);
         Task<ServiceResponse<List<Flight>>> AddFlight(Flight newFlight);
-        Task<ServiceResponse<List<Flight>>> GetFilteredFlights(SearchFlightDto filter);
+        Task<ServiceResponse<DepartReturnFlightDto>> GetFilteredFlights(SearchFlightDto filter);
     }
 }

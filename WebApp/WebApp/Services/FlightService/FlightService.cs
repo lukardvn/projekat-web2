@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Dtos.Flight;
 using WebApp.Models;
+using WebApp.Models.Enums;
 
 namespace WebApp.Services.FlightService
 {
@@ -53,19 +54,35 @@ namespace WebApp.Services.FlightService
             return serviceResponse;
         }
 
-        /// <summary>
-        /// s klijentske strane dobijamo objekat koji koristimo za pretragu letova, njime filtriramo postojece letove u bazi i vracamo klijentu
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
-        public async Task<ServiceResponse<List<Flight>>> GetFilteredFlights(SearchFlightDto filter)
+        public async Task<ServiceResponse<DepartReturnFlightDto>> GetFilteredFlights(SearchFlightDto filter)
         {
-            ServiceResponse<List<Flight>> serviceResponse = new ServiceResponse<List<Flight>>();
+            
+            ServiceResponse<DepartReturnFlightDto> serviceResponse = new ServiceResponse<DepartReturnFlightDto>()
+            {
+                Data = new DepartReturnFlightDto()
+            };
+
             try
             {
                 List<Flight> dbFlights = await _context.Flights.ToListAsync();
-                List<Flight> letovi = dbFlights.Where(x => x.Origin.Equals("Belgrade")).ToList();
-                serviceResponse.Data = letovi;
+                //kod odlaznih letova poredi se datum depart-a iz forme sa takeoffTime atributom svakog leta
+                List<Flight> departingFlights = dbFlights.Where(x => x.Origin.ToLower().Equals(filter.Origin.ToLower())
+                                                             && x.Destination.ToLower().Equals(filter.Destination.ToLower())
+                                                             && x.SeatsLeft > (int.Parse(filter.NumberOfAdults) + int.Parse(filter.NumberOfChildren))
+                                                             && x.TakeoffTime.Date.Equals(filter.Depart.Date)).ToList();
+                serviceResponse.Data.DepartingFlights = departingFlights;
+
+                //provera da li trazimo samo departing letove ili trazimo i departing i returning letove
+                if (filter.TripType == TripType.roundtrip.ToString())    //trebaju nam i returning flights
+                {
+                    //kod povratnih letova poredi se datum return-a iz forme sa takeoffTime atributom svakog leta i obrcu se polaziste i odrediste
+                    List<Flight> returningFlights = dbFlights.Where(x => x.Origin.ToLower().Equals(filter.Destination.ToLower())
+                                                                 && x.Destination.ToLower().Equals(filter.Origin.ToLower())
+                                                                 && x.SeatsLeft > (int.Parse(filter.NumberOfAdults) + int.Parse(filter.NumberOfChildren))
+                                                                 && x.TakeoffTime.Date.Equals(filter.Return?.Date)).ToList();
+                    serviceResponse.Data.ReturningFlights = returningFlights;
+                }
+                
             }
             catch (Exception ex)
             {

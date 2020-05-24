@@ -1,17 +1,16 @@
-
-
 .section {
 	position: relative;
 	height: 100vh;
 }
 
+h1 {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
 .section .section-center {
-	position: absolute;
-	top: 25%;
+	position: relative;
 	left: 0;
 	right: 0;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
 }
 
 #booking {
@@ -21,7 +20,7 @@
 }
 
 .booking-form {
-	padding: 40px;
+	padding: 10px;
     border-radius: 6px;
     width: 90%;
 }
@@ -35,12 +34,11 @@
 	background-color: #fff;
 	height: 50px;
 	color: #191a1e;
-	border: none;
 	font-size: 16px;
 	font-weight: 400;
 	-webkit-box-shadow: none;
 	box-shadow: none;
-	border-radius: 40px;
+	border-radius: 20px;
     padding: 0px 25px;
     width: 100%;
 }
