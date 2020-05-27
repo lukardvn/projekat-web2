@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WebApp.Data;
 using WebApp.Services.FlightService;
+using WebApp.Services.ReservationService;
 using WebApp.Services.UserService;
 
 namespace WebApp
@@ -64,6 +65,12 @@ namespace WebApp
                 });
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IFlightService, FlightService>();
+            services.AddScoped<IReservationService, ReservationService>();
+            //da bismo znali current usera u svakom potrebnom trenutku
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
         }
 

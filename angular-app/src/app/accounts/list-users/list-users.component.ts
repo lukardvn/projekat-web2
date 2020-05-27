@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/models/User';
@@ -19,7 +18,6 @@ export class ListUsersComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getAll().subscribe(result => {
       this.users = [...result.data];
-      console.log(this.users);
     }, err => {console.log(err)});
   }
 

@@ -13,5 +13,7 @@ namespace WebApp.Data
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<Flight> Flights { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
+
     }
 }

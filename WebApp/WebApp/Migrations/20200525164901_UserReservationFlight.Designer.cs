@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp.Data;
 
 namespace WebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200525164901_UserReservationFlight")]
+    partial class UserReservationFlight
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,20 +67,16 @@ namespace WebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("DepartingFlightId")
+                    b.Property<int>("DepartId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ReturningFlightId")
+                    b.Property<int>("ReturnId")
                         .HasColumnType("int");
 
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartingFlightId");
-
-                    b.HasIndex("ReturningFlightId");
 
                     b.HasIndex("UserId");
 
@@ -123,14 +121,6 @@ namespace WebApp.Migrations
 
             modelBuilder.Entity("WebApp.Models.Reservation", b =>
                 {
-                    b.HasOne("WebApp.Models.Flight", "DepartingFlight")
-                        .WithMany()
-                        .HasForeignKey("DepartingFlightId");
-
-                    b.HasOne("WebApp.Models.Flight", "ReturningFlight")
-                        .WithMany()
-                        .HasForeignKey("ReturningFlightId");
-
                     b.HasOne("WebApp.Models.User", "User")
                         .WithMany("Reservations")
                         .HasForeignKey("UserId");

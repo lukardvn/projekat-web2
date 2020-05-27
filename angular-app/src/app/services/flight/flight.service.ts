@@ -10,9 +10,6 @@ export class FlightService {
   public departingFlights: Flight[];
   public returningFlights: Flight[];
 
-  public departId: number = 0;
-  public returnId: number = 0;
-
   private baseUrl = "https://localhost:44383";
   private flightRoute = "/Flights";
   private headers = { 'content-type': 'application/json' };

@@ -1,3 +1,4 @@
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/models/User';
@@ -15,12 +16,14 @@ export class EditProfileComponent implements OnInit {
   
   constructor(private userService: UserService,
               private route: ActivatedRoute,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private authService: AuthService) { }
 
   ngOnInit(){
     this.generateForm();
-
-    let id = this.route.snapshot.paramMap.get('id');  //id "trenutnog" korisnika, cita se iz urla: /edit-profile/X          
+    let id = this.authService.currentUser.nameid;
+    //ovo moze da se koristi kod liste, kad ide redirekcija iz liste u EDIT        
+    //let id = this.route.snapshot.paramMap.get('id');  //id "trenutnog" korisnika, cita se iz urla: /edit-profile/X  
     this.userService.getSingle(id).subscribe(result => {
       this.user = result.data;
       this.populateFields();

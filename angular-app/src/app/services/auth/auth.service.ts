@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { map, retry } from 'rxjs/operators';
 import { JwtHelperService } from "@auth0/angular-jwt";
 
@@ -7,6 +7,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
   providedIn: 'root'
 })
 export class AuthService {
+
   baseUrl = "https://localhost:44383";
   authRoute = "/Auth";
   headers = { 'content-type': 'application/json' }
@@ -39,10 +40,25 @@ export class AuthService {
     return !isExpired;
   }
 
+  public getToken(): string {
+    return localStorage.getItem('token');
+  }
+
   get currentUser() {
     let token = localStorage.getItem('token');
     if (!token) return null;
 
     return new JwtHelperService().decodeToken(token);    
+  }
+
+  cachedRequests: Array<HttpRequest<any>> = [];
+  
+  public collectFailedRequest(request): void {
+    this.cachedRequests.push(request);
+  }
+
+  public retryFailedRequests(): void {
+    // retry the requests. this method can
+    // be called after the token is refreshed
   }
 }

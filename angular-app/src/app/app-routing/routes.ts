@@ -1,3 +1,6 @@
+import { ReservationSummaryComponent } from './../reservations/reservation-summary/reservation-summary.component';
+import { CurrentReservationComponent } from './../reservations/current-reservation/current-reservation.component';
+import { ListReservationsComponent } from './../reservations/list-reservations/list-reservations.component';
 import { HomeComponent } from './../accounts/home/home.component';
 import { ListReturningFlightsComponent } from './../flights/list-returning-flights/list-returning-flights.component';
 import { ListDepartingFlightsComponent } from './../flights/list-departing-flights/list-departing-flights.component';
@@ -22,6 +25,12 @@ export const routes: Routes = [
 
     { path: 'flights' , component: FlightSearchComponent},
     { path: 'departing-flights', component: ListDepartingFlightsComponent },
-    { path: 'returning-flights', component: ListReturningFlightsComponent }
+    { path: 'returning-flights', component: ListReturningFlightsComponent },
     
+    { path: 'list-reservations', 
+      component: ListReservationsComponent,
+      canActivate: [AuthGuard] 
+    },
+    { path: 'current-reservation' , component: CurrentReservationComponent}, //kao fora shopping cart
+    { path: 'reservation-summary', component: ReservationSummaryComponent}
 ];

@@ -17,12 +17,11 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   //samo admin moze da cita sve usere
-  get() {
+  get() { //mislim da ovo nista ne treba, da httpClient radi sve to za nas uz pomoc interceptora
     let headers = new Headers();
     let token = localStorage.getItem('token');
     headers.append('Authorization', 'Bearer ' + token);
     let options = new RequestOptions({ headers: headers });
-
     //return this.http.get<any>(`${this.baseUrl}${this.userRoute}/GetAll`, options);
   }
 
