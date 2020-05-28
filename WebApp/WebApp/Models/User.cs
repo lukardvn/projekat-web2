@@ -17,7 +17,6 @@ namespace WebApp.Models
         public string  City { get; set; }
         public string PhoneNumber { get; set; }
         public List<Reservation> Reservations { get; set; }
-
-        //fali lista prijatelja
+        public List<Friendship> Friendships { get; set; }
     }
 }

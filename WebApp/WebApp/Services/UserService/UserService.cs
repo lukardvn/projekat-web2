@@ -65,7 +65,7 @@ namespace WebApp.Services.UserService
         public async Task<ServiceResponse<GetUserDto>> GetUserById(int id)
         {
             ServiceResponse<GetUserDto> serviceResponse = new ServiceResponse<GetUserDto>();
-            User dbUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+            User dbUser = await _context.Users.Include(u => u.Friendships).FirstOrDefaultAsync(u => u.Id == id);
             serviceResponse.Data = _mapper.Map<GetUserDto>(dbUser); //mapiranje User na GetUserDto
             return serviceResponse;
         }
