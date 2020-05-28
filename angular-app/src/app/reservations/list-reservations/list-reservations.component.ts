@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { Reservation } from './../../../models/Reservation';
 import { ReservationService } from './../../services/reservation/reservation.service';
 import { Component, OnInit } from '@angular/core';
@@ -15,6 +14,7 @@ export class ListReservationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.reservationService.getReservations().subscribe(result => {
+      console.log(result.data);
       this.reservations = [...result.data];
     }, err=> {
       console.log(err);

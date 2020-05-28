@@ -26,8 +26,8 @@ import { HomeComponent } from './accounts/home/home.component';
 import { ListReservationsComponent } from './reservations/list-reservations/list-reservations.component';
 
 import { TokenInterceptor } from './shared/auth/token.interceptor';
-import { CurrentReservationComponent } from './reservations/current-reservation/current-reservation.component';
 import { ReservationSummaryComponent } from './reservations/reservation-summary/reservation-summary.component';
+import { SuccessComponent } from './reservations/success/success.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +43,8 @@ import { ReservationSummaryComponent } from './reservations/reservation-summary/
     NavigationBarComponent,
     HomeComponent,
     ListReservationsComponent,
-    CurrentReservationComponent,
-    ReservationSummaryComponent
+    ReservationSummaryComponent,
+    SuccessComponent
     ],
   exports: [
     PhoneFormatDirective
