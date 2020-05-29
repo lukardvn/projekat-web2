@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Dtos.Flight;
+using WebApp.Dtos.Friendship;
 using WebApp.Dtos.Reservation;
 using WebApp.Dtos.User;
 using WebApp.Models;

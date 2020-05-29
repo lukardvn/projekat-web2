@@ -14,5 +14,10 @@ namespace WebApp.Services.FriendshipService
         //Task<ServiceResponse<List<User>>> AcceptFriendRequest();
 
         Task<ServiceResponse<User>> AddFriend(AddFriendshipDto newFriend);
+        Task<ServiceResponse<List<Friendship>>> GetConfirmedFriendships();  //ovde mozda da vratim dto koji vraca samo ove sa kojima je prijatelj?
+        Task<ServiceResponse<List<Friendship>>> GetRequestsReceived();  //isto?
+        Task<ServiceResponse<List<Friendship>>> GetRequestsSent();  //isto?
+        //Task<ServiceResponse<bool>> AcceptRequest(Friendship request);
+        Task<ServiceResponse<bool>> RespondToRequest(ResponseFriendshipDto response);
     }
 }
