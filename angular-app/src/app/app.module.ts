@@ -1,3 +1,4 @@
+import { FriendshipService } from './services/friendship/friendship.service';
 import { ReservationService } from './services/reservation/reservation.service';
 import { AuthService } from './services/auth/auth.service';
 import { FlightService } from './services/flight/flight.service';
@@ -28,7 +29,12 @@ import { ListReservationsComponent } from './reservations/list-reservations/list
 import { TokenInterceptor } from './shared/auth/token.interceptor';
 import { ReservationSummaryComponent } from './reservations/reservation-summary/reservation-summary.component';
 import { SuccessComponent } from './reservations/success/success.component';
+import { ListFriendsComponent } from './friendships/list-friends/list-friends.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { FriendsModalComponent } from './friendships/friends-module/friends-module.component';
+import { ReservationsModalComponent } from './friendships/reservations-module/reservations-module.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,10 +50,14 @@ import { SuccessComponent } from './reservations/success/success.component';
     HomeComponent,
     ListReservationsComponent,
     ReservationSummaryComponent,
-    SuccessComponent
+    SuccessComponent,
+    ListFriendsComponent,
+    FriendsModalComponent,
+    ReservationsModalComponent
     ],
   exports: [
-    PhoneFormatDirective
+    PhoneFormatDirective,
+    MatDialogModule,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +65,9 @@ import { SuccessComponent } from './reservations/success/success.component';
     ReactiveFormsModule,
     FormsModule,
     AppRoutingModule,
-    NgbModule  
+    NgbModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   providers: [
     UserService,
@@ -64,12 +76,18 @@ import { SuccessComponent } from './reservations/success/success.component';
     AuthGuard,
     AdminAuthGuard,
     ReservationService,
+    FriendshipService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  //za prikaz modula
+  entryComponents: [
+    FriendsModalComponent,
+    ReservationsModalComponent
+  ]
 })
 export class AppModule { }

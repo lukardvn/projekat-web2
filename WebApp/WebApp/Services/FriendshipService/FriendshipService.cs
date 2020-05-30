@@ -5,11 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using WebApp.Data;
 using WebApp.Dtos.Friendship;
+using WebApp.Dtos.User;
 using WebApp.Models;
 
 namespace WebApp.Services.FriendshipService
@@ -30,27 +33,28 @@ namespace WebApp.Services.FriendshipService
         public async Task<ServiceResponse<User>> AddFriend(AddFriendshipDto newFriendship)  //User1 is trying to add User2
         {
             ServiceResponse<User> response = new ServiceResponse<User>();
-
             try
             {
-                User userSendingRequest = await _context.Users
-                    .Include(u => u.Friendships).ThenInclude(fs => fs.User2)
-                    .FirstOrDefaultAsync(u => u.Id == newFriendship.UserId1 &&
-                        u.Id == GetUserId());
-
+                #region dvapristupa_contextu
+                //User userSendingRequest = await _context.Users
+                //      .Include(u => u.Friendships).ThenInclude(fs => fs.User2)
+                //      .FirstOrDefaultAsync(u => u.Id == newFriendship.UserId1 && u.Id == GetUserId());
+                //User userReceivingRequest = await _context.Users.FirstOrDefaultAsync(u => u.Id == newFriendship.UserId2);
+                #endregion dvapristupa_contextu
+                var usersDb = await _context.Users.ToListAsync();
+                //isti korisnik je ulogovan i pokusava da posalje zahtev
+                User userSendingRequest = usersDb.FirstOrDefault(u => u.Id == GetUserId() && u.Id == newFriendship.UserId1);
                 if (userSendingRequest == null)
                 {
                     response.Success = false;
                     response.Message = "User not found";
                     return response;
                 }
-
-                User userReceivingRequest = await _context.Users.FirstOrDefaultAsync(u => u.Id == newFriendship.UserId2);
-
+                User userReceivingRequest = usersDb.FirstOrDefault(u => u.Id == newFriendship.UserId2);
                 if (userReceivingRequest == null)
                 {
                     response.Success = false;
-                    response.Message = "Cannot find your friend";
+                    response.Message = "Cannot find user you're trying to add.";
                     return response;
                 }
 
@@ -60,7 +64,6 @@ namespace WebApp.Services.FriendshipService
                     User2 = userReceivingRequest,
                     Status = 0
                 };
-
                 await _context.Friendships.AddAsync(friendship);
                 await _context.SaveChangesAsync();
 
@@ -74,17 +77,53 @@ namespace WebApp.Services.FriendshipService
 
             return response;
         }
-        public async Task<ServiceResponse<List<Friendship>>> GetConfirmedFriendships()
+        public async Task<ServiceResponse<List<FriendUserDto>>> GetConfirmedFriends([Optional] int id)
         {
-            ServiceResponse<List<Friendship>> serviceResponse = new ServiceResponse<List<Friendship>>();
+            ServiceResponse<List<FriendUserDto>> serviceResponse = new ServiceResponse<List<FriendUserDto>>();
             try
             {
+                int currentId;
+                if (id == 0)
+                    currentId = GetUserId();
+                else
+                    currentId = id;
+
                 //pretraga svih prijateljstava gde je current user jedan od 'cinioca' veze
                 List<Friendship> dbFriendships = await _context.Friendships
+                                                    .Include(fs => fs.User1).ThenInclude(u => u.Reservations).ThenInclude(r => r.DepartingFlight)
+                                                    .Include(fs => fs.User1).ThenInclude(u => u.Reservations).ThenInclude(r => r.ReturningFlight)
+                                                    .Include(fs => fs.User2).ThenInclude(u => u.Reservations).ThenInclude(r => r.DepartingFlight)
+                                                    .Include(fs => fs.User2).ThenInclude(u => u.Reservations).ThenInclude(r => r.ReturningFlight)//ako treba da pristupimo objektima
                                                     .Where(fs => fs.Status == 1)    //samo potvrdjena prijateljstva
-                                                    .Include(fs => fs.User1).Include(fs => fs.User2)    //ako treba da pristupimo objektima, moze i bez ovoga vrv
-                                                    .Where(fs => fs.UserId1 == GetUserId() || fs.UserId2 == GetUserId()).ToListAsync();
-                serviceResponse.Data = dbFriendships.ToList();
+                                                    .Where(fs => fs.UserId1 == currentId || fs.UserId2 == currentId).ToListAsync();
+
+                var friends = new List<User>();
+                foreach (Friendship fs in dbFriendships)
+                {
+                    if (fs.UserId1 != currentId)
+                        friends.Add(fs.User1);
+                    else
+                        friends.Add(fs.User2);
+                }   
+                //mapiranje liste User-a na listu FriendUserDto-va
+                serviceResponse.Data = friends.Select(u => _mapper.Map<FriendUserDto>(u)).ToList();
+
+                #region druginacin
+                /*//da bih vratio listu prijatelja ovog korisnika
+                var users1 = dbFriendships.Select(fs => fs.User1).ToList();
+                var users2 = dbFriendships.Select(fs => fs.User2).ToList();
+                List<User> friends2 = new List<User>();
+                foreach (User u in users1)
+                {
+                    if (u.Id != GetUserId())
+                        friends2.Add(u);
+                }
+                foreach (User u in users2)
+                {
+                    if (u.Id != GetUserId())
+                        friends2.Add(u);
+                }*/
+                #endregion druginacin     
             }
             catch (Exception ex)
             {
@@ -101,7 +140,7 @@ namespace WebApp.Services.FriendshipService
             { 
                 List<Friendship> dbFriendships = await _context.Friendships
                                                     .Where(fs => fs.Status == 0)    //samo nepotvrdjena prijateljstva
-                                                    .Include(fs => fs.User1).Include(fs => fs.User2)    //ako treba da pristupimo objektima, moze i bez ovoga vrv
+                                                    .Include(fs => fs.User1).Include(fs => fs.User2)    //ako treba da pristupimo objektima
                                                     .Where(fs => fs.UserId2 == GetUserId()).ToListAsync(); //tamo gde je currentUser user2=> primljeni zahtevi za prijateljstvo
                 serviceResponse.Data = dbFriendships.ToList();
             }
@@ -120,7 +159,7 @@ namespace WebApp.Services.FriendshipService
             {
                 List<Friendship> dbFriendships = await _context.Friendships
                                                     .Where(fs => fs.Status == 0)    //samo nepotvrdjena prijateljstva
-                                                    .Include(fs => fs.User1).Include(fs => fs.User2)    //ako treba da pristupimo objektima, moze i bez ovoga vrv
+                                                    .Include(fs => fs.User1).Include(fs => fs.User2)    //ako treba da pristupimo objektimaa
                                                     .Where(fs => fs.UserId1 == GetUserId()).ToListAsync(); //tamo gde je currentUser user1=> poslati zahtevi za prijateljstvo
                 serviceResponse.Data = dbFriendships.ToList();
             }
@@ -164,6 +203,7 @@ namespace WebApp.Services.FriendshipService
             return serviceResponse;
         }
 
+        #region AcceptReqDRUGINACIN
         /*
         public async Task<ServiceResponse<bool>> AcceptRequest(Friendship request)   //mozda mogu da posaljem samo UserId1???
         {
@@ -187,6 +227,6 @@ namespace WebApp.Services.FriendshipService
 
             return serviceResponse;
         }*/
-
+        #endregion AcceptReq
     }
 }

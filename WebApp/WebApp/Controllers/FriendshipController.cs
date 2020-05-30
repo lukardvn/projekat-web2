@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,10 +28,10 @@ namespace WebApp.Controllers
             return Ok(await _friendshipService.AddFriend(newFriendship));
         }
 
-        [HttpGet("GetMyFriends")]
-        public async Task<IActionResult> GetConfirmedFriendships() //samo potvrdjena prijateljstva
+        [HttpGet("GetMyFriends/{id?}")]
+        public async Task<IActionResult> GetConfirmedFriends([Optional] int id) //samo potvrdjena prijateljstva
         {
-            return Ok(await _friendshipService.GetConfirmedFriendships());
+            return Ok(await _friendshipService.GetConfirmedFriends(id));
         }
 
         [HttpGet("RequestsReceived")]

@@ -1,3 +1,5 @@
+import { CommonModule } from '@angular/common';
+import { ListFriendsComponent } from './../friendships/list-friends/list-friends.component';
 import { SuccessComponent } from './../reservations/success/success.component';
 import { ReservationSummaryComponent } from './../reservations/reservation-summary/reservation-summary.component';
 import { ListReservationsComponent } from './../reservations/list-reservations/list-reservations.component';
@@ -27,10 +29,14 @@ export const routes: Routes = [
     { path: 'departing-flights', component: ListDepartingFlightsComponent },
     { path: 'returning-flights', component: ListReturningFlightsComponent },
     
+    //{ path: 'friends/:id/list-reservations', component: FriendReservationsComponent },
     { path: 'list-reservations', 
       component: ListReservationsComponent,
       canActivate: [AuthGuard] 
     },
     { path: 'reservation-summary', component: ReservationSummaryComponent},
-    { path: 'reservation-summary/success', component: SuccessComponent}
+    { path: 'reservation-summary/success', component: SuccessComponent},
+
+    //{ path: 'friends/:id/list-friends', component: FriendFriendsComponent},
+    { path: 'friends', component: ListFriendsComponent },
 ];

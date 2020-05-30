@@ -39,3 +39,5 @@ button[disabled]{
   background-color: #cccccc;
   color: #666666;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

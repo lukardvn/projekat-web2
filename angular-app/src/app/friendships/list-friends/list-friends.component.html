@@ -1,0 +1,33 @@
+<div class="center-narrow">
+<h2>Friends</h2>
+  <div class="table-responsive">
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>City</th>
+          <th>Phone number</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let friend of friends">
+          <td>{{friend.email}}</td>
+          <td>{{friend.name}}</td>
+          <td>{{friend.surname}}</td>
+          <td>{{friend.city}}</td>
+          <td>{{friend.phoneNumber}}</td>
+          <!--<td><button (click)="friendsReservations(friend)">bookings</button></td>
+          <td><button (click)="friendsFriends(friend)">friends</button></td>
+          <td><button (click)="friendsDetails(friend)" [routerLink]="'/friends/' + friend.id + '/list-friends'">friends</button></td>-->
+          <td><button (click)="showFriendsModule(friend)">friends</button>
+          <td><button (click)="showReservationsModule(friend)">reservations</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

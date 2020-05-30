@@ -1,0 +1,23 @@
+    <h1>Reservations of {{this.data.email}}</h1>
+    <div class="table-responsive">
+      <table *ngIf="reservations" class="table table-striped table-sm">
+        <thead>
+            <tr>
+            <th>Origin #1</th>
+            <th>Destination #1</th>
+            <th>Origin #2</th>
+            <th>Destination #2</th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let reservation of reservations">
+            <td>{{reservation.departingFlight.origin}}</td>
+            <td>{{reservation.departingFlight.destination}}</td>
+            <td>{{reservation.returningFlight.origin}}</td>
+            <td>{{reservation.returningFlight.destination}}</td>
+            <td><button>Details</button></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
