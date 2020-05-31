@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 })
 export class FriendshipService {
   baseUrl = "https://localhost:44383/Friendship";
+  headers = { 'content-type': 'application/json' }
   myFriend;
 
   constructor(private http: HttpClient) { }
@@ -20,16 +21,25 @@ export class FriendshipService {
   }
 
   getRequestsReceived(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetRequestsReceived`);
+    return this.http.get<any>(`${this.baseUrl}/RequestsReceived`);
   }
 
   getRequestsSent(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/GetRequestsSent`);
+    return this.http.get<any>(`${this.baseUrl}/RequestsSent`);
   }
 
   respondToRequest(response: any) {
     const body = JSON.stringify(response);
-    return this.http.put(`${this.baseUrl}/RespondToRequest`, body);
+    return this.http.put(`${this.baseUrl}/RespondToRequest`, body, { 'headers': this.headers });
+  }
+
+  cancelRequest(id1, id2) {
+    return this.http.delete(`${this.baseUrl}/CancelRequest/${id1}/${id2}`);
+  }
+  
+  addFriend(request) {
+    const body = JSON.stringify(request);
+    return this.http.post(`${this.baseUrl}`, body, { 'headers': this.headers });
   }
 
 }

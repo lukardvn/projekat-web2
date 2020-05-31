@@ -1,0 +1,29 @@
+<div class="center-narrow">
+    <h2>Friends</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>City</th>
+              <th>Phone number</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let request of requests">
+              <td>{{request.user1.email}}</td>
+              <td>{{request.user1.name}}</td>
+              <td>{{request.user1.surname}}</td>
+              <td>{{request.user1.city}}</td>
+              <td>{{request.user1.phoneNumber}}</td>
+              <td><button type="button" class="btn btn-success" (click)="acceptRequest(request)">Accept</button></td>
+              <td><button type="button" class="btn btn-danger" (click)="rejectRequest(request)">Reject</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>

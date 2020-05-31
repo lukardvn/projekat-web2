@@ -35,6 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FriendsModalComponent } from './friendships/friends-module/friends-module.component';
 import { ReservationsModalComponent } from './friendships/reservations-module/reservations-module.component';
+import { ReceivedRequestsComponent } from './friendships/received-requests/received-requests.component';
+import { SentRequestsComponent } from './friendships/sent-requests/sent-requests.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,9 @@ import { ReservationsModalComponent } from './friendships/reservations-module/re
     SuccessComponent,
     ListFriendsComponent,
     FriendsModalComponent,
-    ReservationsModalComponent
+    ReservationsModalComponent,
+    ReceivedRequestsComponent,
+    SentRequestsComponent
     ],
   exports: [
     PhoneFormatDirective,

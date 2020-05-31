@@ -1,3 +1,5 @@
+import { SentRequestsComponent } from './../friendships/sent-requests/sent-requests.component';
+import { ReceivedRequestsComponent } from './../friendships/received-requests/received-requests.component';
 import { CommonModule } from '@angular/common';
 import { ListFriendsComponent } from './../friendships/list-friends/list-friends.component';
 import { SuccessComponent } from './../reservations/success/success.component';
@@ -39,4 +41,6 @@ export const routes: Routes = [
 
     //{ path: 'friends/:id/list-friends', component: FriendFriendsComponent},
     { path: 'friends', component: ListFriendsComponent },
+    { path: 'friends/requests-received', component: ReceivedRequestsComponent},
+    { path: 'friends/requests-sent', component: SentRequestsComponent }
 ];

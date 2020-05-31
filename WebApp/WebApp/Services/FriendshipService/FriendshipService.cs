@@ -58,6 +58,8 @@ namespace WebApp.Services.FriendshipService
                     return response;
                 }
 
+                //TREBA DA PRETRAZIM DA LI VEC POSTOJI PRIJATELJSTVO ILI NEKAKO DA ZABRANIM REQ AKO POSTOJI
+
                 Friendship friendship = new Friendship
                 {
                     User1 = userSendingRequest,
@@ -171,7 +173,7 @@ namespace WebApp.Services.FriendshipService
             
             return serviceResponse;
         }
-        public async Task<ServiceResponse<bool>> RespondToRequest(ResponseFriendshipDto response)
+        public async Task<ServiceResponse<bool>> RespondToRequest(ResponseFriendshipDto response)  
         {
             ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();            
             try
@@ -180,12 +182,21 @@ namespace WebApp.Services.FriendshipService
                                                         .FirstOrDefaultAsync(fs => fs.UserId2 == GetUserId() && fs.UserId1 == response.UserId1 && fs.Status == 0);
                 if (dbFriendship != null)
                 {
-                    dbFriendship.Status = 1;
-                    _context.Friendships.Update(dbFriendship);
-                    await _context.SaveChangesAsync();
+                    int newStatus = response.Decision ? 1 : 0;
+                    if (newStatus == 0)
+                    {
+                        _context.Friendships.Remove(dbFriendship);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        dbFriendship.Status = newStatus;
+                        _context.Friendships.Update(dbFriendship);
+                        await _context.SaveChangesAsync();
+                    }   
 
                     serviceResponse.Data = true;    //samo da je uspesno izvrseno, posle mogu da dodam listu prijatelja npr.. ili prijateljstvo sklopljeno
-                    serviceResponse.Message = "Your response: " + dbFriendship.Status;
+                    serviceResponse.Message = "Your response: " + newStatus.ToString();
                     serviceResponse.Success = true;
                 }
                 else
@@ -198,6 +209,28 @@ namespace WebApp.Services.FriendshipService
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<bool>> CancelRequest(int id1, int id2)
+        {
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+
+            try
+            {
+                Friendship fs = await _context.Friendships.FirstOrDefaultAsync(fs => fs.UserId1 == id1 && fs.UserId2 == id2);
+
+                _context.Friendships.Remove(fs);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = true;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
             }
 
             return serviceResponse;

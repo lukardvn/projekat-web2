@@ -1,4 +1,38 @@
-<table>
+<div class="center-narrow">
+    <h2>Users</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Email</th>
+              <th>Name</th>
+              <th>Surname</th>
+              <th>City</th>
+              <th>Phone number</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let user of users">
+              <tr *ngIf="user.id != currentId"> <!--ne prikazujem trenutnog korisnika-->
+                <td>{{user.email}}</td>
+                <td>{{user.name}}</td>
+                <td>{{user.surname}}</td>
+                <td>{{user.city}}</td>
+                <td>{{user.phoneNumber}}</td>
+                <td><button type="button" class="btn btn-success" (click)="addFriend(user.id)">add</button></td>
+                <td><button type="button" class="btn btn-info" [routerLink]="['/edit-profile/', user.id]">edit</button></td>
+                <td><button type="button" class="btn btn-danger" (click)="delete(user.id)">delete</button></td>
+              </tr>
+            </ng-container>  
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+<!--<table>
     <thead>
         <tr>
             <th>Id</th>
@@ -17,4 +51,4 @@
             <td (click)="delete(user.id)">Del</td>
         </tr>
     </tbody>
-</table>
+</table>-->
