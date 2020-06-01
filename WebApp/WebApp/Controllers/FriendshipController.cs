@@ -57,10 +57,10 @@ namespace WebApp.Controllers
             return Ok(await _friendshipService.RespondToRequest(response));
         }
 
-        [HttpDelete("CancelRequest/{id1}/{id2}")]
-        public async Task<IActionResult> CancelRequest(int id1, int id2)
+        [HttpDelete("CancelRequest/{id}")]
+        public async Task<IActionResult> CancelRequest(int id)
         {
-            return Ok(await _friendshipService.CancelRequest(id1, id2));
+            return Ok(await _friendshipService.CancelRequest(id));
         }
 
     }

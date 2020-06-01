@@ -33,8 +33,8 @@ export class FriendshipService {
     return this.http.put(`${this.baseUrl}/RespondToRequest`, body, { 'headers': this.headers });
   }
 
-  cancelRequest(id1, id2) {
-    return this.http.delete(`${this.baseUrl}/CancelRequest/${id1}/${id2}`);
+  cancelRequest(id) {
+    return this.http.delete(`${this.baseUrl}/CancelRequest/${id}`);
   }
   
   addFriend(request) {

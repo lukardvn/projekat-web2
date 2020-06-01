@@ -34,7 +34,7 @@ export class ReceivedRequestsComponent implements OnInit {
       Decision: false
     };
     this.friendshipService.respondToRequest(response).subscribe(() => {
-      this.requests.splice(request.id, 1);
+      this.requests = this.requests.filter(req => req !== request);
     });
   }
 

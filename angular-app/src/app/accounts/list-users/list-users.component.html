@@ -11,7 +11,6 @@
               <th>Phone number</th>
               <th></th>
               <th></th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -24,7 +23,7 @@
                 <td>{{user.phoneNumber}}</td>
                 <td><button type="button" class="btn btn-success" (click)="addFriend(user.id)">add</button></td>
                 <td><button type="button" class="btn btn-info" [routerLink]="['/edit-profile/', user.id]">edit</button></td>
-                <td><button type="button" class="btn btn-danger" (click)="delete(user.id)">delete</button></td>
+                <!--<td><button type="button" class="btn btn-danger" (click)="delete(user.id)">delete</button></td>-->
               </tr>
             </ng-container>  
           </tbody>

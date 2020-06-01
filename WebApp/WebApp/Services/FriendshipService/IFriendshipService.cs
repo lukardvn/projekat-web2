@@ -16,6 +16,6 @@ namespace WebApp.Services.FriendshipService
         Task<ServiceResponse<List<Friendship>>> GetRequestsReceived();  // da li vratiti listu korisnika...
         Task<ServiceResponse<List<Friendship>>> GetRequestsSent();  // da li vratiti listu korisnika...
         Task<ServiceResponse<bool>> RespondToRequest(ResponseFriendshipDto response);
-        Task<ServiceResponse<bool>> CancelRequest(int id1, int id2);
+        Task<ServiceResponse<bool>> CancelRequest(int id);
     }
 }

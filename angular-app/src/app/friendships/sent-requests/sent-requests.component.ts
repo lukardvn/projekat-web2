@@ -18,9 +18,8 @@ export class SentRequestsComponent implements OnInit {
   }
 
   cancelRequest(request) {
-    this.friendshipService.cancelRequest(request.userId1, request.userId2).subscribe(result => {
-      console.log(result);
-      this.requests.splice(request.id, 1);
+    this.friendshipService.cancelRequest(request.userId2).subscribe(() => {
+      this.requests = this.requests.filter(req => req !== request);
     })
   }
 

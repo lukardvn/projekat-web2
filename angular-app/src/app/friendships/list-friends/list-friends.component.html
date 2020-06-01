@@ -24,8 +24,9 @@
           <!--<td><button (click)="friendsReservations(friend)">bookings</button></td>
           <td><button (click)="friendsFriends(friend)">friends</button></td>
           <td><button (click)="friendsDetails(friend)" [routerLink]="'/friends/' + friend.id + '/list-friends'">friends</button></td>-->
-          <td><button (click)="showFriendsModule(friend)">friends</button>
-          <td><button (click)="showReservationsModule(friend)">reservations</button></td>
+          <td><button type="button" class="btn btn-info" (click)="showFriendsModule(friend)">friends</button>
+          <td><button type="button" class="btn btn-info" (click)="showReservationsModule(friend)">reservations</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="unfriend(friend)">x</button></td>
         </tr>
       </tbody>
     </table>

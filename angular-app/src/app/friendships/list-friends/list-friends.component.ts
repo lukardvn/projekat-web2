@@ -49,4 +49,10 @@ export class ListFriendsComponent implements OnInit {
 
     this.dialog.open(ReservationsModalComponent, dialogConfig);
   }
+
+  unfriend(friend) {
+    this.friendshipService.cancelRequest(friend.id).subscribe(() => {
+      this.friends = this.friends.filter(f => f !== friend);
+    })
+  }
 }

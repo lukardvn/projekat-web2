@@ -214,13 +214,24 @@ namespace WebApp.Services.FriendshipService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<bool>> CancelRequest(int id1, int id2)
+        public async Task<ServiceResponse<bool>> CancelRequest(int id)
         {
             ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
 
             try
             {
-                Friendship fs = await _context.Friendships.FirstOrDefaultAsync(fs => fs.UserId1 == id1 && fs.UserId2 == id2);
+                Friendship fs = await _context.Friendships.FirstOrDefaultAsync(fs => fs.UserId1 == GetUserId() && fs.UserId2 == id);
+
+                if (fs == null)
+                {
+                    fs = await _context.Friendships.FirstOrDefaultAsync(fs => fs.UserId2 == GetUserId() && fs.UserId1 == id);
+                }
+
+                if (fs == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Friendship cannot be found.";
+                }
 
                 _context.Friendships.Remove(fs);
                 await _context.SaveChangesAsync();
