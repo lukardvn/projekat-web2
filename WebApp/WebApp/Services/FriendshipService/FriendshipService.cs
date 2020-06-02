@@ -106,7 +106,7 @@ namespace WebApp.Services.FriendshipService
                         friends.Add(fs.User1);
                     else
                         friends.Add(fs.User2);
-                }   
+                }
                 //mapiranje liste User-a na listu FriendUserDto-va
                 serviceResponse.Data = friends.Select(u => _mapper.Map<FriendUserDto>(u)).ToList();
 
@@ -138,8 +138,8 @@ namespace WebApp.Services.FriendshipService
         public async Task<ServiceResponse<List<Friendship>>> GetRequestsReceived()
         {
             ServiceResponse<List<Friendship>> serviceResponse = new ServiceResponse<List<Friendship>>();
-            try 
-            { 
+            try
+            {
                 List<Friendship> dbFriendships = await _context.Friendships
                                                     .Where(fs => fs.Status == 0)    //samo nepotvrdjena prijateljstva
                                                     .Include(fs => fs.User1).Include(fs => fs.User2)    //ako treba da pristupimo objektima
@@ -151,7 +151,7 @@ namespace WebApp.Services.FriendshipService
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
             }
-            
+
             return serviceResponse;
         }
         public async Task<ServiceResponse<List<Friendship>>> GetRequestsSent()
@@ -170,14 +170,14 @@ namespace WebApp.Services.FriendshipService
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
             }
-            
+
             return serviceResponse;
         }
-        public async Task<ServiceResponse<bool>> RespondToRequest(ResponseFriendshipDto response)  
+        public async Task<ServiceResponse<bool>> RespondToRequest(ResponseFriendshipDto response)
         {
-            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();            
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
             try
-            {    
+            {
                 Friendship dbFriendship = await _context.Friendships
                                                         .FirstOrDefaultAsync(fs => fs.UserId2 == GetUserId() && fs.UserId1 == response.UserId1 && fs.Status == 0);
                 if (dbFriendship != null)
@@ -193,7 +193,7 @@ namespace WebApp.Services.FriendshipService
                         dbFriendship.Status = newStatus;
                         _context.Friendships.Update(dbFriendship);
                         await _context.SaveChangesAsync();
-                    }   
+                    }
 
                     serviceResponse.Data = true;    //samo da je uspesno izvrseno, posle mogu da dodam listu prijatelja npr.. ili prijateljstvo sklopljeno
                     serviceResponse.Message = "Your response: " + newStatus.ToString();
@@ -203,7 +203,7 @@ namespace WebApp.Services.FriendshipService
                 {
                     serviceResponse.Message = "Friend request not found.";
                     serviceResponse.Success = false;
-                }                       
+                }
             }
             catch (Exception ex)
             {
@@ -245,6 +245,24 @@ namespace WebApp.Services.FriendshipService
             }
 
             return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<bool>> CheckIfFriend(int userId)
+        {
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+
+            int currentId = GetUserId();
+            Friendship dbFriendship = await _context.Friendships.FirstOrDefaultAsync(fs => fs.Status == 1 && fs.UserId1 == currentId && fs.UserId2 == userId);
+            if (dbFriendship == null) 
+                dbFriendship = await _context.Friendships.FirstOrDefaultAsync(fs => fs.Status == 1 && fs.UserId2 == currentId && fs.UserId1 == userId);
+
+            if (dbFriendship == null)
+                serviceResponse.Data = false;
+            else
+                serviceResponse.Data = true;
+
+            return serviceResponse;
+
         }
 
         #region AcceptReqDRUGINACIN

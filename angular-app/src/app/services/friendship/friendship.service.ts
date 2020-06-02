@@ -42,4 +42,8 @@ export class FriendshipService {
     return this.http.post(`${this.baseUrl}`, body, { 'headers': this.headers });
   }
 
+  checkIfFriend(id) {
+    return this.http.get<any>(`${this.baseUrl}/CheckIfFriend/${id}`);
+  }
+
 }

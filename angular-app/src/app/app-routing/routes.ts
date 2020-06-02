@@ -15,6 +15,8 @@ import { LoginFormComponent } from '../accounts/login-form/login-form.component'
 import { SignupFormComponent } from '../accounts/signup-form/signup-form.component';
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../services/auth/auth-guard.service';
+import { AllAccountsComponent } from '../accounts/all-accounts/all-accounts.component';
+import { UserProfileComponent } from '../accounts/user-profile/user-profile.component';
 
 export const routes: Routes = [
     { path: 'signup-form', component: SignupFormComponent },
@@ -42,5 +44,9 @@ export const routes: Routes = [
     //{ path: 'friends/:id/list-friends', component: FriendFriendsComponent},
     { path: 'friends', component: ListFriendsComponent },
     { path: 'friends/requests-received', component: ReceivedRequestsComponent},
-    { path: 'friends/requests-sent', component: SentRequestsComponent }
+    { path: 'friends/requests-sent', component: SentRequestsComponent },
+
+    { path: 'accounts/all', component: AllAccountsComponent },
+    { path: 'accounts/profile/:id', component: UserProfileComponent }
+
 ];

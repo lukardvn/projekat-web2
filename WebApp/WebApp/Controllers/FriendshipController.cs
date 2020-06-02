@@ -63,5 +63,10 @@ namespace WebApp.Controllers
             return Ok(await _friendshipService.CancelRequest(id));
         }
 
+        [HttpGet("CheckIfFriend/{id}")]
+        public async Task<IActionResult> CheckIfFriend(int id)
+        {
+            return Ok(await _friendshipService.CheckIfFriend(id));
+        }
     }
 }

@@ -1,0 +1,59 @@
+<div class="center-narrow">
+<div class="col-md-8 order-md-1">
+    <h2 class="mb-3">Profile</h2>   
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+          <label class="label-info"  for="firstName">Name</label>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <label>{{user.name}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+          <label class="label-info"  for="firstName">Surname</label>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <label>{{user.surname}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+          <label class="label-info" >Email address</label>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <label>{{user.email}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+          <label class="label-info"  for="firstName">City</label>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <label>{{user.city}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mb-3">
+          <label class="label-info"  for="firstName">Phone</label>
+        </div>
+        <div class="col-sm-6 mb-3">
+          <label>{{user.phoneNumber}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 mb-3">      
+        </div>
+        <div class="col-sm-6 mb-3">
+            <button *ngIf="!ifFriend; else elseBlock" (click)="addFriend(user)" class="btn-block btn btn-success btn-lg">Add</button>
+            <div *ngIf="alreadySent" class="alert alert-warning">
+              You've already sent a friend request to {{user.email}}.
+            </div>
+            <ng-template  #elseBlock ><button (click)="unfriend(user)" class="btn-block btn btn-danger btn-lg">Unfriend</button></ng-template>
+        </div>
+    </div>
+    <div class="mb-3">
+    </div>
+    <hr class="mb-4">
+</div>
+</div>

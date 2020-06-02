@@ -62,13 +62,31 @@ namespace WebApp.Services.UserService
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<FriendUserDto>> GetUser(int id)
+        {
+            ServiceResponse<FriendUserDto> serviceResponse = new ServiceResponse<FriendUserDto>();
+            User dbUser = await _context.Users.Include(u => u.Friendships).ThenInclude(fs => fs.User1)
+                                              .Include(u => u.Friendships).ThenInclude(fs => fs.User2)
+                                              .Include(u => u.Reservations).ThenInclude(r => r.DepartingFlight)
+                                              .Include(u => u.Reservations).ThenInclude(r => r.ReturningFlight)
+                                              .FirstOrDefaultAsync(u => u.Id == id);
+            serviceResponse.Data = _mapper.Map<FriendUserDto>(dbUser); //mapiranje User na GetUserDto
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<GetUserDto>> GetUserById(int id)
         {
             ServiceResponse<GetUserDto> serviceResponse = new ServiceResponse<GetUserDto>();
-            User dbUser = await _context.Users.Include(u => u.Friendships).FirstOrDefaultAsync(u => u.Id == id);
+            User dbUser = await _context.Users.Include(u => u.Friendships).ThenInclude(fs => fs.User1)
+                                              .Include(u => u.Friendships).ThenInclude(fs => fs.User2)
+                                              .Include(u => u.Reservations).ThenInclude(r => r.DepartingFlight)
+                                              .Include(u => u.Reservations).ThenInclude(r => r.ReturningFlight)
+                                              .FirstOrDefaultAsync(u => u.Id == id);
             serviceResponse.Data = _mapper.Map<GetUserDto>(dbUser); //mapiranje User na GetUserDto
             return serviceResponse;
         }
+
+
 
         public async Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updatedUser)
         {

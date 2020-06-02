@@ -37,6 +37,8 @@ import { FriendsModalComponent } from './friendships/friends-module/friends-modu
 import { ReservationsModalComponent } from './friendships/reservations-module/reservations-module.component';
 import { ReceivedRequestsComponent } from './friendships/received-requests/received-requests.component';
 import { SentRequestsComponent } from './friendships/sent-requests/sent-requests.component';
+import { AllAccountsComponent } from './accounts/all-accounts/all-accounts.component';
+import { UserProfileComponent } from './accounts/user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,7 +59,9 @@ import { SentRequestsComponent } from './friendships/sent-requests/sent-requests
     FriendsModalComponent,
     ReservationsModalComponent,
     ReceivedRequestsComponent,
-    SentRequestsComponent
+    SentRequestsComponent,
+    AllAccountsComponent,
+    UserProfileComponent
     ],
   exports: [
     PhoneFormatDirective,

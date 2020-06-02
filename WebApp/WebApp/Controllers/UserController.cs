@@ -32,6 +32,12 @@ namespace WebApp.Controllers
             return Ok(await _userService.GetUserById(id));
         }
 
+        [HttpGet("profile/{id}")]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            return Ok(await _userService.GetUser(id));
+        }
+
         [HttpPost]  // POST localhost/User
         public async Task<IActionResult> AddUser(AddUserDto newUser)
         {

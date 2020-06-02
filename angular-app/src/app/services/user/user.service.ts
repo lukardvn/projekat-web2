@@ -33,6 +33,10 @@ export class UserService {
     return this.http.get<any>(`${this.baseUrl}${this.userRoute}/${id}`);
   }
 
+  getUser(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}${this.userRoute}/profile/${id}`);
+  }
+
   registerSingle(user: User) : Observable<any> {
     const body = JSON.stringify(user);
     return this.http.post(this.baseUrl + this.authRoute + "/Register", body, {'headers': this.headers });
