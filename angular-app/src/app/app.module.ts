@@ -39,6 +39,13 @@ import { ReceivedRequestsComponent } from './friendships/received-requests/recei
 import { SentRequestsComponent } from './friendships/sent-requests/sent-requests.component';
 import { AllAccountsComponent } from './accounts/all-accounts/all-accounts.component';
 import { UserProfileComponent } from './accounts/user-profile/user-profile.component';
+
+import { MatTableModule } from '@angular/material/table';
+
+import {MatSortModule} from '@angular/material/sort';
+import { NoAccessComponent } from './accounts/no-access/no-access.component';
+import { AirlineEditComponent } from './airlines/airline-edit/airline-edit.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,11 +68,15 @@ import { UserProfileComponent } from './accounts/user-profile/user-profile.compo
     ReceivedRequestsComponent,
     SentRequestsComponent,
     AllAccountsComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    NoAccessComponent,
+    AirlineEditComponent
     ],
   exports: [
     PhoneFormatDirective,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule
   ],
   imports: [
     BrowserModule,
@@ -76,6 +87,8 @@ import { UserProfileComponent } from './accounts/user-profile/user-profile.compo
     NgbModule,
     BrowserAnimationsModule,
     MatDialogModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers: [
     UserService,
@@ -92,10 +105,11 @@ import { UserProfileComponent } from './accounts/user-profile/user-profile.compo
     }
   ],
   bootstrap: [AppComponent],
-  //za prikaz modula
+  //za prikaz modala
   entryComponents: [
     FriendsModalComponent,
-    ReservationsModalComponent
+    ReservationsModalComponent,
+    NoAccessComponent
   ]
 })
 export class AppModule { }

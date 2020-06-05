@@ -30,6 +30,9 @@ namespace WebApp.Controllers
         [HttpPost] //POST localhost/Flights
         public async Task<IActionResult> AddFlight(Flight newFlight)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             return Ok(await _flightService.AddFlight(newFlight));
         }
 

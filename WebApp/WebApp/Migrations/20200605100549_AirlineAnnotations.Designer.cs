@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApp.Data;
 
 namespace WebApp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200605100549_AirlineAnnotations")]
+    partial class AirlineAnnotations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,69 +21,12 @@ namespace WebApp.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("WebApp.Models.Airline", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Airlines");
-                });
-
-            modelBuilder.Entity("WebApp.Models.AirlineDestination", b =>
-                {
-                    b.Property<int>("AirlineId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DestinationId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AirlineId", "DestinationId");
-
-                    b.HasIndex("DestinationId");
-
-                    b.ToTable("AirlineDestinations");
-                });
-
-            modelBuilder.Entity("WebApp.Models.Destination", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Destinations");
-                });
-
             modelBuilder.Entity("WebApp.Models.Flight", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AirlineId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Destination")
                         .HasColumnType("nvarchar(max)");
@@ -111,8 +56,6 @@ namespace WebApp.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AirlineId");
 
                     b.ToTable("Flights");
                 });
@@ -169,9 +112,6 @@ namespace WebApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AirlineId")
-                        .HasColumnType("int");
-
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -201,36 +141,9 @@ namespace WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AirlineId");
-
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("WebApp.Models.AirlineDestination", b =>
-                {
-                    b.HasOne("WebApp.Models.Airline", "Airline")
-                        .WithMany("AirlineDestinations")
-                        .HasForeignKey("AirlineId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApp.Models.Destination", "Destination")
-                        .WithMany("AirlineDestinations")
-                        .HasForeignKey("DestinationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApp.Models.Flight", b =>
-                {
-                    b.HasOne("WebApp.Models.Airline", "Airline")
-                        .WithMany("Flights")
-                        .HasForeignKey("AirlineId");
                 });
 
             modelBuilder.Entity("WebApp.Models.Friendship", b =>
@@ -265,13 +178,6 @@ namespace WebApp.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("WebApp.Models.User", b =>
-                {
-                    b.HasOne("WebApp.Models.Airline", "Airline")
-                        .WithMany("Admins")
-                        .HasForeignKey("AirlineId");
                 });
 #pragma warning restore 612, 618
         }

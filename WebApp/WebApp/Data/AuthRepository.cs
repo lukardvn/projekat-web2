@@ -4,7 +4,6 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,8 +68,6 @@ namespace WebApp.Data
             return response;
         }
 
-      
-
         public async Task<bool> UserExists(string username)
         {
             if (await _context.Users.AnyAsync(x => x.Email.ToLower() == username.ToLower()))
@@ -110,7 +107,8 @@ namespace WebApp.Data
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),   //id korisnika
-                new Claim(ClaimTypes.Email, user.Email) //email korisnika, moze i unique_name da se koristi
+                new Claim(ClaimTypes.Email, user.Email), //email korisnika, moze i unique_name da se koristi
+                new Claim(ClaimTypes.Role, user.Type.ToString())
             };
 
             //uzimamo kljuc iz appsetings.json

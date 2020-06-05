@@ -25,6 +25,9 @@ namespace WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> AddFriend(AddFriendshipDto newFriendship)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             return Ok(await _friendshipService.AddFriend(newFriendship));
         }
 

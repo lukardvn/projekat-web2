@@ -34,6 +34,9 @@ namespace WebApp.Controllers
         [HttpPost("AddReservation")]
         public async Task<IActionResult> Add(AddReservationDto newReservation)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             return Ok(await _reservationService.AddReservation(newReservation));
         }
     }

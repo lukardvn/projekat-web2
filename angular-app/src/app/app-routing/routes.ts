@@ -17,36 +17,36 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from '../services/auth/auth-guard.service';
 import { AllAccountsComponent } from '../accounts/all-accounts/all-accounts.component';
 import { UserProfileComponent } from '../accounts/user-profile/user-profile.component';
+import { AdminAuthGuard } from '../services/auth/admin-auth-guard.service';
+import { NoAccessComponent } from '../accounts/no-access/no-access.component';
+import { AirlineEditComponent } from '../airlines/airline-edit/airline-edit.component';
 
 export const routes: Routes = [
     { path: 'signup-form', component: SignupFormComponent },
     { path: 'login-form', component: LoginFormComponent },
-    { path: 'edit-profile/:id', component: EditProfileComponent },
-    { path: 'edit-profile', component: EditProfileComponent },
-    { path: 'list-users', 
-      component: ListUsersComponent, 
-      canActivate: [AuthGuard /*, AdminAuthGuard */]
-    },
+    { path: 'edit-profile/:id', component: EditProfileComponent, canActivate: [AuthGuard] },
+    { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
+    { path: 'list-users', component: ListUsersComponent, canActivate: [AuthGuard, AdminAuthGuard] },
     { path: 'home', component: HomeComponent},
+    { path: 'no-access', component: NoAccessComponent },
 
     { path: 'flights' , component: FlightSearchComponent},
     { path: 'departing-flights', component: ListDepartingFlightsComponent },
     { path: 'returning-flights', component: ListReturningFlightsComponent },
     
     //{ path: 'friends/:id/list-reservations', component: FriendReservationsComponent },
-    { path: 'list-reservations', 
-      component: ListReservationsComponent,
-      canActivate: [AuthGuard] 
-    },
+    { path: 'list-reservations',  component: ListReservationsComponent, canActivate: [AuthGuard] },
     { path: 'reservation-summary', component: ReservationSummaryComponent},
     { path: 'reservation-summary/success', component: SuccessComponent},
 
     //{ path: 'friends/:id/list-friends', component: FriendFriendsComponent},
-    { path: 'friends', component: ListFriendsComponent },
-    { path: 'friends/requests-received', component: ReceivedRequestsComponent},
-    { path: 'friends/requests-sent', component: SentRequestsComponent },
+    { path: 'friends', component: ListFriendsComponent, canActivate: [AuthGuard] },
+    { path: 'friends/requests-received', component: ReceivedRequestsComponent, canActivate: [AuthGuard] },
+    { path: 'friends/requests-sent', component: SentRequestsComponent, canActivate: [AuthGuard] },
 
     { path: 'accounts/all', component: AllAccountsComponent },
-    { path: 'accounts/profile/:id', component: UserProfileComponent }
+    { path: 'accounts/profile/:id', component: UserProfileComponent },
+
+    { path: 'airlines/my-airline', component: AirlineEditComponent },
 
 ];

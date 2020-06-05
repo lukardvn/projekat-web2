@@ -15,6 +15,9 @@ namespace WebApp.Data
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
+        public DbSet<Airline> Airlines { get; set; }
+        public DbSet<Destination> Destinations { get; set; }
+        public DbSet<AirlineDestination> AirlineDestinations { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /*modelBuilder.Entity<Friendship>() OVO AKO JE OK DA IMAM 2 LISTE PRIJATELJA U SVAKOM KORISNIKU
@@ -43,6 +46,10 @@ namespace WebApp.Data
                 .HasOne(fs => fs.User1)
                 .WithMany(u => u.Friendships)
                 .HasForeignKey(fs => fs.UserId1);
+
+            modelBuilder.Entity<AirlineDestination>()
+                .HasKey(cs => new { cs.AirlineId, cs.DestinationId });
+
         }
 
     }

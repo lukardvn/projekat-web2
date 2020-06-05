@@ -18,5 +18,6 @@ namespace WebApp.Models
         public string Stops { get; set; }
         public string Price { get; set; }
         public int SeatsLeft { get; set; }
+        public Airline Airline { get; set; }
     }
 }

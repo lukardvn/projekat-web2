@@ -1,9 +1,14 @@
-<h1>Home Page</h1>
-<p *ngIf="authService.currentUser">
-    Welcome {{authService.currentUser.email}}
-</p>
-<ul>
-    <li *ngIf="authService.isLoggedIn()"><a routerLink="/admin">Admin</a></li>
-    <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login-form">Login</a></li>
-    <li *ngIf="authService.isLoggedIn()"><a (click)="authService.logout()">Logout</a></li>
-</ul>
+<div class="center-narrow">
+    <h1 style="text-align: center;">Home Page</h1>
+    <p *ngIf="authService.currentUser">
+        Welcome {{authService.currentUser.email}}
+    </p>
+    <ul>
+        <!--<li *ngIf="authService.isLoggedIn()"><a routerLink="/admin">Admin</a></li>-->
+        <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login-form">login</a></li>
+        <li *ngIf="!authService.isLoggedIn()"><a routerLink="/signup-form">signup</a></li>
+        <li *ngIf="authService.isLoggedIn()"><a routerLink="/edit-profile">profile</a></li>
+        <li *ngIf="authService.isLoggedIn()"><a routerLink="/friends">friends</a></li>
+        <li *ngIf="authService.currentUser.role === 'admin'"><a routerLink="/friends">airline edit TEST</a></li>
+    </ul>
+</div>

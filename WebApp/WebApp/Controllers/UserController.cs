@@ -41,12 +41,18 @@ namespace WebApp.Controllers
         [HttpPost]  // POST localhost/User
         public async Task<IActionResult> AddUser(AddUserDto newUser)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             return Ok(await _userService.AddUser(newUser));
         }
 
         [HttpPut] // PUT localhost/User
         public async Task<IActionResult> Updateuser(UpdateUserDto updatedUser)
         {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
             ServiceResponse<GetUserDto> response = await _userService.UpdateUser(updatedUser);
 
             if (response.Data == null)

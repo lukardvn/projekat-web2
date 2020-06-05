@@ -1,10 +1,10 @@
 import { AuthService } from './../../services/auth/auth.service';
-import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Input, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
-import { User } from 'src/models/User';
-import { Observable } from 'rxjs';
 import { FriendshipService } from 'src/app/services/friendship/friendship.service';
-import { identifierModuleUrl } from '@angular/compiler';
+
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'list-users',
@@ -14,6 +14,12 @@ import { identifierModuleUrl } from '@angular/compiler';
 export class ListUsersComponent implements OnInit {
   users: Array<any> = [];
   currentId = this.authService.currentUser.nameid;
+  usersToShow;
+
+  public displayedColumns: string[] = ['id', 'email', 'name', 'surname', 'city', 'phoneNumber', "actions", "actions2"];
+  dataSource;
+
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private userService: UserService,
               private authService: AuthService,
@@ -22,7 +28,10 @@ export class ListUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getAll().subscribe(result => {
-      this.users = [...result.data];
+      this.users = [...result.data];;
+
+      this.dataSource = new MatTableDataSource(this.users);
+      this.dataSource.sort = this.sort;
     }, err => {console.log(err)});
   }
 

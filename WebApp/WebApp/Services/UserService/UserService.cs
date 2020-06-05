@@ -62,7 +62,7 @@ namespace WebApp.Services.UserService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<FriendUserDto>> GetUser(int id)
+        public async Task<ServiceResponse<FriendUserDto>> GetUser(int id)   //neciji profil
         {
             ServiceResponse<FriendUserDto> serviceResponse = new ServiceResponse<FriendUserDto>();
             User dbUser = await _context.Users.Include(u => u.Friendships).ThenInclude(fs => fs.User1)
@@ -74,13 +74,14 @@ namespace WebApp.Services.UserService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<GetUserDto>> GetUserById(int id)
+        public async Task<ServiceResponse<GetUserDto>> GetUserById(int id)  //izmena svog profila
         {
             ServiceResponse<GetUserDto> serviceResponse = new ServiceResponse<GetUserDto>();
             User dbUser = await _context.Users.Include(u => u.Friendships).ThenInclude(fs => fs.User1)
                                               .Include(u => u.Friendships).ThenInclude(fs => fs.User2)
                                               .Include(u => u.Reservations).ThenInclude(r => r.DepartingFlight)
                                               .Include(u => u.Reservations).ThenInclude(r => r.ReturningFlight)
+                                              .Include(u => u.Airline)
                                               .FirstOrDefaultAsync(u => u.Id == id);
             serviceResponse.Data = _mapper.Map<GetUserDto>(dbUser); //mapiranje User na GetUserDto
             return serviceResponse;

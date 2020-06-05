@@ -10,9 +10,9 @@ export class AdminAuthGuard implements CanActivate{
   constructor(private authService: AuthService,
               private router: Router) { }
 
-  canActivate() { //ovo se izvrsava samo ako je neko ulogovan, jer je u routes.ts authguard pre adminauthguard
+  canActivate() { //ovo se izvrsava samo ako je neko ulogovan, jer je u routes.ts authguard pre adminauthguard pa se tek onda proverava koji je tip korisnika
     let user = this.authService.currentUser;
-    if (user && user.admin) return true;
+    if (user && user.role === "admin") return true;
 
     this.router.navigate(['/no-access']);
     return false;
