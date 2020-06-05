@@ -1,1 +1,68 @@
-<p>airline-edit works!</p>
+
+<div class="col-md-8 order-md-1">
+    <h2 class="mb-3">Airline info</h2>
+    <form class="needs-validation" [formGroup]="form"  (ngSubmit)="saveChanges()">     
+    <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="name">name</label>
+          <input 
+            formControlName="name"
+            type="text" 
+            class="form-control" 
+            id="name" 
+            placeholder="" 
+            value="" required>
+          <div class="invalid-feedback">
+            Valid name is required.
+          </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <label for="address">address </label>
+          <input 
+            formControlName="address"
+            type="text" 
+            class="form-control" 
+            id="address" 
+            placeholder="" 
+            value="" required>
+          <div class="invalid-feedback">
+            Valid address is required.
+          </div>
+        </div>
+      </div>
+      <!--
+      <div class="mb-3">
+        <label for="description">description</label>
+        <input 
+          type="text"
+          formControlName="description"
+          class="form-control" 
+          id="description" 
+          placeholder="" required>
+        <div class="invalid-feedback">
+          Please enter a valid description.
+        </div>
+      </div>-->
+
+      <div class="form-group">
+        <label for="description">promo description</label>
+        <textarea 
+            style="padding-top: 1%;"
+            type="text"
+            formControlName="description"
+            class="form-control" 
+            id="description" 
+            placeholder="" 
+            required
+            rows="5">
+        </textarea>
+        <div class="invalid-feedback">
+            Please enter a valid description.
+          </div>
+      </div>
+
+    <hr class="mb-4">
+    <button class="btn btn-primary btn-lg btn-block">Save Changes</button>
+    </form>
+</div>

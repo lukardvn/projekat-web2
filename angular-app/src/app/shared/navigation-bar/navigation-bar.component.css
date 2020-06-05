@@ -3,3 +3,7 @@
 .dropdown-item {
     cursor: pointer;
 }
+
+.admin{
+    font-weight: bold;
+}

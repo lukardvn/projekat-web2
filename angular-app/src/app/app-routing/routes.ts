@@ -36,8 +36,8 @@ export const routes: Routes = [
     
     //{ path: 'friends/:id/list-reservations', component: FriendReservationsComponent },
     { path: 'list-reservations',  component: ListReservationsComponent, canActivate: [AuthGuard] },
-    { path: 'reservation-summary', component: ReservationSummaryComponent},
-    { path: 'reservation-summary/success', component: SuccessComponent},
+    { path: 'reservation-summary', component: ReservationSummaryComponent, canActivate: [AuthGuard]},
+    { path: 'reservation-summary/success', component: SuccessComponent, canActivate: [AuthGuard]},
 
     //{ path: 'friends/:id/list-friends', component: FriendFriendsComponent},
     { path: 'friends', component: ListFriendsComponent, canActivate: [AuthGuard] },
@@ -47,6 +47,6 @@ export const routes: Routes = [
     { path: 'accounts/all', component: AllAccountsComponent },
     { path: 'accounts/profile/:id', component: UserProfileComponent },
 
-    { path: 'airlines/my-airline', component: AirlineEditComponent },
+    { path: 'airlines/my-airline', component: AirlineEditComponent, canActivate: [AuthGuard, AdminAuthGuard] },
 
 ];
