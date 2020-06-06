@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,21 +14,33 @@ namespace WebApp.Services.FlightService
     public class FlightService : IFlightService
     {
         private readonly DataContext _context;
-
-        public FlightService(DataContext context)
+        private readonly IMapper _mapper;
+        public FlightService(DataContext context, IMapper mapper)
         {
-            _context = context;
+            _context = context; 
+            _mapper = mapper;
         }
 
-        public async Task<ServiceResponse<List<Flight>>> AddFlight(Flight newFlight)
+        public async Task<ServiceResponse<List<Flight>>> AddFlight(AddFlightDto newFlight) //"return":"2020-06-24T02:28" ovako izgleda sa klijentske strane
+                                                                                     // 01-Jan-01 12:00:00 AM serverska
         {
             ServiceResponse<List<Flight>> serviceResponse = new ServiceResponse<List<Flight>>();
             try
             {
-                Flight flight = newFlight;
-                await _context.Flights.AddAsync(flight);
+                Airline airline = await _context.Airlines
+                                            .Include(a => a.Flights)
+                                            .FirstOrDefaultAsync(a => a.Id == newFlight.Airline.Id);
+                Flight flight = _mapper.Map<Flight>(newFlight);
+                var vreme = flight.LandingTime.Subtract(flight.TakeoffTime);
+                flight.Duration = vreme.Hours + "h" + vreme.Minutes + "s";
+
+                airline.Flights.Add(flight);
+                _context.Airlines.Update(airline);
                 await _context.SaveChangesAsync();
-                serviceResponse.Data = _context.Flights.ToList();
+                //var duration = newFlight.LandingTime.Subtract(newFlight.TakeoffTime);
+                //await _context.Flights.AddAsync(flight);
+                //await _context.SaveChangesAsync();
+                serviceResponse.Data = airline.Flights;
             }
             catch (Exception ex)
             {

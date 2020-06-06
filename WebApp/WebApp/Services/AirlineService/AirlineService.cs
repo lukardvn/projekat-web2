@@ -31,7 +31,7 @@ namespace WebApp.Services.AirlineService
             ServiceResponse<Airline> serviceResponse = new ServiceResponse<Airline>();
             try
             {
-                var priv = GetUserPrivilege();  //"admin" ili "regular"
+                var priv = GetUserPrivilege();  //"admin" ili "regular"     MORA DA MOZE NA NIVOU KONTROLERA
 
                 if (priv != UserType.admin.ToString())
                 {
@@ -62,28 +62,28 @@ namespace WebApp.Services.AirlineService
             
             return serviceResponse;
         }
-
+        //NIJE ISKORISCENO 
         public async Task<ServiceResponse<Airline>> AddDestinationToAirline(AirlineDestination destinationAir)
         {
             ServiceResponse<Airline> serviceResponse = new ServiceResponse<Airline>();
 
             try
             {
-                Destination existing = await _context.Destinations.FirstOrDefaultAsync(d => d.City == destinationAir.Destination.City && d.State == destinationAir.Destination.State);
-                Airline dbAirline = await _context.Airlines.FirstOrDefaultAsync(a => a.Id == destinationAir.Airline.Id);
-
                 AirlineDestination ad = new AirlineDestination
                 {
                     Airline = destinationAir.Airline,
                     Destination = destinationAir.Destination
                 };
 
-                if (existing == null)   //destinacija ne postoji, dodaj u listu destinacija
+                Destination dbDestination = await _context.Destinations.FirstOrDefaultAsync(d => d.City == destinationAir.Destination.City && d.State == destinationAir.Destination.State);
+                Airline dbAirline = await _context.Airlines.FirstOrDefaultAsync(a => a.Id == destinationAir.Airline.Id);    
+
+                if (dbDestination == null)   //destinacija ne postoji, dodaj u listu destinacija
                 {
                     await _context.Destinations.AddAsync(destinationAir.Destination);
                     dbAirline.AirlineDestinations.Add(ad);
                     await _context.SaveChangesAsync();
-                }
+                }   //destinacija vec postoji
                 else
                 {
                     dbAirline.AirlineDestinations.Add(ad);
@@ -97,6 +97,11 @@ namespace WebApp.Services.AirlineService
             }
 
             return serviceResponse;
+        }
+
+        public Task<ServiceResponse<Airline>> AddFlightToAirline(Flight flight)
+        {
+            throw new NotImplementedException();   
         }
     }
 }

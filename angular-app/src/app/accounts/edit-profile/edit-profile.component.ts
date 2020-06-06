@@ -25,7 +25,6 @@ export class EditProfileComponent implements OnInit {
     //ovo moze da se koristi kod liste, kad ide redirekcija iz liste u EDIT        
     //let id = this.route.snapshot.paramMap.get('id');  //id "trenutnog" korisnika, cita se iz urla: /edit-profile/X  
     this.userService.getSingle(id).subscribe(result => {
-      console.log(result.data);
       this.user = result.data;
       this.populateFields();
     }, err => {

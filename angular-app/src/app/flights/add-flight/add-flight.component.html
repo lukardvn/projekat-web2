@@ -1,0 +1,131 @@
+    <div class="my-component">
+        <div id="booking" class="section">
+            <div class="section-center">
+                <div class="container">
+                    <div class="row">
+                        <h1><i class="fas fa-suitcase"></i> New flight</h1>
+                        <div class="booking-form">
+                            <form [formGroup]="form" (ngSubmit)="addFlight()">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label"><i class="fas fa-plane-departure"></i> Flying from</span>
+                                            <input formControlName="origin" 
+                                                   type="text" 
+                                                   class="form-control" 
+                                                   placeholder="City or airport" required>
+                                            <div *ngIf="f.origin.touched && f.origin.invalid" class="alert alert-warning">
+                                                Where are you flying from?   
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label"><i class="fas fa-plane-arrival"></i> Flying to</span>
+                                            <input formControlName="destination" 
+                                                   type="text" 
+                                                   class="form-control" 
+                                                   placeholder="City or airport" required>
+                                            <div *ngIf="f.destination.touched && f.destination.invalid" class="alert alert-warning">
+                                                    Where are you flying to?   
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <span class="form-label">Departing</span>
+                                            <input formControlName="takeOffTime" 
+                                                   type="datetime-local" 
+                                                   class="form-control" required>
+                                            <div *ngIf="f.takeOffTime.touched && f.takeOffTime.invalid" class="alert alert-warning">
+                                                required
+                                            </div>   
+                                        </div>
+                                    </div>
+                                    <div  class="col-md-3">
+                                        <div class="form-group">
+                                            <div>
+                                                <span class="form-label">Arriving</span>
+                                                <input formControlName="landingTime" 
+                                                    type="datetime-local" 
+                                                    class="form-control" required>
+                                                <div *ngIf="f.landingTime.touched && f.landingTime.invalid" class="alert alert-warning">
+                                                    required 
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div  class="col-md-3">
+                                        <div class="form-group">
+                                            <div>
+                                                <span class="form-label">Distance(km)</span>
+                                                <input formControlName="distance" 
+                                                    type="text" 
+                                                    class="form-control"
+                                                    placeholder="" required>
+                                                <div *ngIf="f.distance.touched && f.distance.invalid" class="alert alert-warning">
+                                                    required 
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div  class="col-md-3">
+                                        <div class="form-group">
+                                            <div>
+                                                <span class="form-label">Seats</span>
+                                                <input formControlName="seatsLeft" 
+                                                    type="number" 
+                                                    class="form-control" required>
+                                                <div *ngIf="f.seatsLeft.touched && f.seatsLeft.invalid" class="alert alert-warning">
+                                                    required 
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <span class="form-label">Price(USD)</span>
+                                            <input formControlName="price" 
+                                                   type="text" 
+                                                   class="form-control" required>
+                                            <div *ngIf="f.price.touched && f.price.invalid" class="alert alert-warning">
+                                                required
+                                            </div>   
+                                        </div>
+                                    </div>
+                                    <div  class="col-md-3">
+                                        <div class="form-group">
+                                            <div>
+                                                <span class="form-label">Number of stops</span>
+                                                <input formControlName="stops" 
+                                                    type="text" 
+                                                    class="form-control" required>
+                                                <div *ngIf="f.stops.touched && f.stops.invalid" class="alert alert-warning">
+                                                    required 
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-3"></div>
+                                    <div  class="col-md-3">
+                                        <div class="form-group">
+                                            <div>
+                                                <span class="form-label"></span>
+                                                <button type="submit" style="background-color: green; color: whitesmoke;" class="btn btn-block form-control">Add</button>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>                           
+                            </form>
+                        </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>

@@ -45,6 +45,9 @@ import { MatTableModule } from '@angular/material/table';
 import {MatSortModule} from '@angular/material/sort';
 import { NoAccessComponent } from './accounts/no-access/no-access.component';
 import { AirlineEditComponent } from './airlines/airline-edit/airline-edit.component';
+import { AirlineDestinationsEditComponent } from './airlines/airline-destinations-edit/airline-destinations-edit.component';
+import { AirlineFlightsEditComponent } from './airlines/airline-flights-edit/airline-flights-edit.component';
+import { AddFlightComponent } from './flights/add-flight/add-flight.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +73,10 @@ import { AirlineEditComponent } from './airlines/airline-edit/airline-edit.compo
     AllAccountsComponent,
     UserProfileComponent,
     NoAccessComponent,
-    AirlineEditComponent
+    AirlineEditComponent,
+    AirlineDestinationsEditComponent,
+    AirlineFlightsEditComponent,
+    AddFlightComponent
     ],
   exports: [
     PhoneFormatDirective,
@@ -109,7 +115,10 @@ import { AirlineEditComponent } from './airlines/airline-edit/airline-edit.compo
   entryComponents: [
     FriendsModalComponent,
     ReservationsModalComponent,
-    NoAccessComponent
+    //NoAccessComponent,
+    AirlineDestinationsEditComponent,
+    AirlineFlightsEditComponent,
+    AddFlightComponent
   ]
 })
 export class AppModule { }

@@ -24,4 +24,10 @@ export class FlightService {
     const body = JSON.stringify(filter);
     return this.http.post(`${this.baseUrl}${this.flightRoute}/GetFiltered`, body, {'headers': this.headers});
   }
+
+  addFlight(flight: Flight) : Observable<any> {
+    const body = JSON.stringify(flight);
+    console.log(body);
+    return this.http.post(this.baseUrl + this.flightRoute, body, {'headers': this.headers });
+  }
 }

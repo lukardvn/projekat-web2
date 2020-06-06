@@ -28,7 +28,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost] //POST localhost/Flights
-        public async Task<IActionResult> AddFlight(Flight newFlight)
+        public async Task<IActionResult> AddFlight(AddFlightDto newFlight)
         {
             if (!ModelState.IsValid)
                 return BadRequest();

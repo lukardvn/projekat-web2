@@ -1,3 +1,5 @@
+import { Airline } from './Airline';
+
 export class Flight {
     public constructor(init?: Partial<Flight>) {
         Object.assign(this, init);
@@ -13,4 +15,5 @@ export class Flight {
     Stops: string;
     Price: string;
     SeatsLeft: number;
+    Airline: Airline;
 }

@@ -14,6 +14,7 @@ namespace WebApp.Controllers
     [Route("[controller]")]
     [ApiController]
     [Authorize]
+    [Authorize(Roles = "admin")]
     public class AirlineController : ControllerBase
     {
         private readonly IAirlineService _airlineService;

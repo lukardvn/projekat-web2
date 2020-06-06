@@ -2,7 +2,7 @@ import { ReservationsModalComponent } from './../reservations-module/reservation
 import { FriendsModalComponent } from './../friends-module/friends-module.component';
 import { FriendshipService } from './../../services/friendship/friendship.service';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-list-friends',

@@ -1,0 +1,17 @@
+<h1>Destinations</h1>
+<div class="table-responsive">
+  <table *ngIf="data" class="table table-striped table-sm">
+    <thead>
+        <tr>
+        <th>City</th>
+        <th>State</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ad of data">
+        <td>{{ad.destination.city}}</td>
+        <td>{{ad.destination.state}}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>

@@ -11,5 +11,6 @@ namespace WebApp.Services.AirlineService
     {
         Task<ServiceResponse<Airline>> GetMyAirline();
         Task<ServiceResponse<Airline>> AddDestinationToAirline(AirlineDestination destination);
+        Task<ServiceResponse<Airline>> AddFlightToAirline(Flight flight);
     }
 }

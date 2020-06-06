@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AirlineService } from 'src/app/services/airline/airline.service';
 import { Airline } from 'src/models/Airline';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AirlineDestinationsEditComponent } from '../airline-destinations-edit/airline-destinations-edit.component';
+import { AirlineFlightsEditComponent } from '../airline-flights-edit/airline-flights-edit.component';
+import { AddFlightComponent } from 'src/app/flights/add-flight/add-flight.component';
 
 @Component({
   selector: 'app-airline-edit',
@@ -13,13 +17,13 @@ export class AirlineEditComponent implements OnInit {
   form: FormGroup = new FormGroup({});
   
   constructor(private airlineService: AirlineService,
-              private fb: FormBuilder,) { }
+              private fb: FormBuilder,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.generateForm();
     this.airlineService.getMine().subscribe(result => {
       this.airline = result.data;
-      console.log(this.airline);
       this.populateFields();
     }, err=> {
       console.log(err);
@@ -56,5 +60,37 @@ export class AirlineEditComponent implements OnInit {
     this.airline.name = this.form.value.name;
     this.airline.description = this.form.value.description;
     this.airline.address = this.form.value.address;
+  }
+
+  showDestinationsModal(airlineDestinations){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "70%";
+    dialogConfig.data = airlineDestinations;
+    dialogConfig.position = { top: '10%' };
+
+    this.dialog.open(AirlineDestinationsEditComponent, dialogConfig);
+  }
+
+  showFlightsModal(flights){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "70%";
+    dialogConfig.data = flights;
+    dialogConfig.position = { top: '10%' };
+
+    this.dialog.open(AirlineFlightsEditComponent, dialogConfig);
+  }
+
+  showAddFlightModal(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "70%";
+    dialogConfig.position = { top: '10%' };
+    dialogConfig.data = this.airline;
+    this.dialog.open(AddFlightComponent, dialogConfig);
   }
 }
