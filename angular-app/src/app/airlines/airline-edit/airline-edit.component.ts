@@ -6,6 +6,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AirlineDestinationsEditComponent } from '../airline-destinations-edit/airline-destinations-edit.component';
 import { AirlineFlightsEditComponent } from '../airline-flights-edit/airline-flights-edit.component';
 import { AddFlightComponent } from 'src/app/flights/add-flight/add-flight.component';
+import { AddDestinationComponent } from 'src/app/destinations/add-destination/add-destination.component';
 
 @Component({
   selector: 'app-airline-edit',
@@ -24,6 +25,7 @@ export class AirlineEditComponent implements OnInit {
     this.generateForm();
     this.airlineService.getMine().subscribe(result => {
       this.airline = result.data;
+      this.airlineService.availableAirlineDestinations = result.data.airlineDestinations; //sve destinacije OVE kompanije
       this.populateFields();
     }, err=> {
       console.log(err);
@@ -92,5 +94,15 @@ export class AirlineEditComponent implements OnInit {
     dialogConfig.position = { top: '10%' };
     dialogConfig.data = this.airline;
     this.dialog.open(AddFlightComponent, dialogConfig);
+  }
+
+  showAddDestinationModal() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "70%";
+    dialogConfig.position = { top: '10%' };
+    dialogConfig.data = this.airline.id;
+    this.dialog.open(AddDestinationComponent, dialogConfig);
   }
 }

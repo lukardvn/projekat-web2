@@ -6,14 +6,20 @@
                         <h1><i class="fas fa-suitcase"></i> New flight</h1>
                         <div class="booking-form">
                             <form [formGroup]="form" (ngSubmit)="addFlight()">
+                                <div *ngIf="form.errors" class="alert alert-danger">
+                                    Invalid input.
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <span class="form-label"><i class="fas fa-plane-departure"></i> Flying from</span>
-                                            <input formControlName="origin" 
+                                            <!--<input formControlName="origin" 
                                                    type="text" 
                                                    class="form-control" 
-                                                   placeholder="City or airport" required>
+                                                   placeholder="City or airport" required>-->
+                                            <select formControlName="origin" class="form-control" required>
+                                                <option  *ngFor="let ad of availableDests"  value="{{ad.destination.city}}">{{ad.destination.city}}</option>
+                                            </select>
                                             <div *ngIf="f.origin.touched && f.origin.invalid" class="alert alert-warning">
                                                 Where are you flying from?   
                                             </div>
@@ -22,10 +28,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <span class="form-label"><i class="fas fa-plane-arrival"></i> Flying to</span>
-                                            <input formControlName="destination" 
-                                                   type="text" 
-                                                   class="form-control" 
-                                                   placeholder="City or airport" required>
+                                            <select formControlName="destination" class="form-control" required>
+                                                <option  *ngFor="let ad of availableDests"  value="{{ad.destination.city}}">{{ad.destination.city}}</option>
+                                            </select>
                                             <div *ngIf="f.destination.touched && f.destination.invalid" class="alert alert-warning">
                                                     Where are you flying to?   
                                             </div>
@@ -63,7 +68,7 @@
                                             <div>
                                                 <span class="form-label">Distance(km)</span>
                                                 <input formControlName="distance" 
-                                                    type="text" 
+                                                    type="number" 
                                                     class="form-control"
                                                     placeholder="" required>
                                                 <div *ngIf="f.distance.touched && f.distance.invalid" class="alert alert-warning">
@@ -92,7 +97,7 @@
                                         <div class="form-group">
                                             <span class="form-label">Price(USD)</span>
                                             <input formControlName="price" 
-                                                   type="text" 
+                                                   type="number" 
                                                    class="form-control" required>
                                             <div *ngIf="f.price.touched && f.price.invalid" class="alert alert-warning">
                                                 required
@@ -104,7 +109,7 @@
                                             <div>
                                                 <span class="form-label">Number of stops</span>
                                                 <input formControlName="stops" 
-                                                    type="text" 
+                                                    type="number" 
                                                     class="form-control" required>
                                                 <div *ngIf="f.stops.touched && f.stops.invalid" class="alert alert-warning">
                                                     required 
@@ -117,7 +122,7 @@
                                         <div class="form-group">
                                             <div>
                                                 <span class="form-label"></span>
-                                                <button type="submit" style="background-color: green; color: whitesmoke;" class="btn btn-block form-control">Add</button>
+                                                <button [disabled]="!form.valid" type="submit" style="background-color: green; color: whitesmoke;" class="btn btn-block form-control">Add</button>
                                             </div>
                                         </div>
                                     </div>  

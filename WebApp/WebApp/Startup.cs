@@ -18,6 +18,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using WebApp.Data;
 using WebApp.Services.AirlineService;
+using WebApp.Services.DestinationService;
 using WebApp.Services.FlightService;
 using WebApp.Services.FriendshipService;
 using WebApp.Services.ReservationService;
@@ -75,6 +76,7 @@ namespace WebApp
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddScoped<IFriendshipService, FriendshipService>();
             services.AddScoped<IAirlineService, AirlineService>();
+            services.AddScoped<IDestinationService, DestinationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

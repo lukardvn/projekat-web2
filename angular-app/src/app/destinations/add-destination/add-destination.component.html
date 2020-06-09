@@ -1,0 +1,7 @@
+<select class="form-control" required [(ngModel)]="selectedDestination">
+    <option *ngFor="let destination of destinations" [ngValue]="destination">{{destination.city}}, {{destination.state}}</option>
+</select>
+<button (click)="addDestination()" style="margin-top: 1%;" class="btn btn-success btn-block">Add</button>
+<div *ngIf="alreadyContains; else elseBlock" class="alert alert-danger">
+    This destination is already defined for this airline.
+</div>

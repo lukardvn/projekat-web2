@@ -48,6 +48,8 @@ import { AirlineEditComponent } from './airlines/airline-edit/airline-edit.compo
 import { AirlineDestinationsEditComponent } from './airlines/airline-destinations-edit/airline-destinations-edit.component';
 import { AirlineFlightsEditComponent } from './airlines/airline-flights-edit/airline-flights-edit.component';
 import { AddFlightComponent } from './flights/add-flight/add-flight.component';
+import { AddDestinationComponent } from './destinations/add-destination/add-destination.component';
+import { DestinationService } from './services/destination/destination.service';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,8 @@ import { AddFlightComponent } from './flights/add-flight/add-flight.component';
     AirlineEditComponent,
     AirlineDestinationsEditComponent,
     AirlineFlightsEditComponent,
-    AddFlightComponent
+    AddFlightComponent,
+    AddDestinationComponent
     ],
   exports: [
     PhoneFormatDirective,
@@ -108,7 +111,8 @@ import { AddFlightComponent } from './flights/add-flight/add-flight.component';
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    DestinationService
   ],
   bootstrap: [AppComponent],
   //za prikaz modala
@@ -118,7 +122,8 @@ import { AddFlightComponent } from './flights/add-flight/add-flight.component';
     //NoAccessComponent,
     AirlineDestinationsEditComponent,
     AirlineFlightsEditComponent,
-    AddFlightComponent
+    AddFlightComponent,
+    AddDestinationComponent
   ]
 })
 export class AppModule { }

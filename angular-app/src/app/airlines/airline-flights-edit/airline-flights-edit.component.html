@@ -6,9 +6,9 @@
         <th>Origin</th>
         <th>Destination</th>
         <th>Date</th>
-        <th>Takeoff Time</th>
-        <th>Landing Time</th>
-        <th>Price</th>
+        <th>Takeoff time</th>
+        <th>Landing time</th>
+        <th>Price per seat</th>
         </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
         <td>{{flight.takeoffTime | date}}</td>
         <td>{{flight.takeoffTime | date:'h:mm a z'}}</td>
         <td>{{flight.landingTime | date:'h:mm a z'}}</td>
-        <td>{{flight.price}}</td>
+        <td>{{flight.price | currency}}</td>
         </tr>
     </tbody>
   </table>

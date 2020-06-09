@@ -8,7 +8,7 @@ namespace WebApp.Dtos.Airline
 {
     public class AddDestinationAirlineDto
     {
-        public Destination Destination { get; set; }
-        public Models.Airline Airline { get; set; }
+        public int AirlineId { get; set; }
+        public int DestinationId { get; set; }
     }
 }

@@ -62,21 +62,58 @@ namespace WebApp.Services.AirlineService
             
             return serviceResponse;
         }
-        //NIJE ISKORISCENO 
-        public async Task<ServiceResponse<Airline>> AddDestinationToAirline(AirlineDestination destinationAir)
+
+        public Task<ServiceResponse<Airline>> AddFlightToAirline(Flight flight)
         {
-            ServiceResponse<Airline> serviceResponse = new ServiceResponse<Airline>();
+            throw new NotImplementedException();   //VALJDA NE TREBA?
+        }
+
+        public async Task<ServiceResponse<List<Destination>>> GetDestinationsOfAirline(int airlineId)
+        {
+            ServiceResponse<List<Destination>> serviceResponse = new ServiceResponse<List<Destination>>();
+
+            List<AirlineDestination> dbAds = await _context.AirlineDestinations.Where(ad => ad.AirlineId == airlineId)
+                                                .Include(ad => ad.Destination).ToListAsync();
+            var destinations = new List<Destination>();
+
+            foreach (AirlineDestination ad in dbAds)
+                destinations.Add(ad.Destination);
+
+            serviceResponse.Data = destinations.ToList();
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<Airline>> AddDestinationToAirline(AddDestinationAirlineDto destination)
+        {
+            ServiceResponse<Airline> serviceResponse = new ServiceResponse<Airline>();  //moram dodati proveru da li je ova destinacija vec sadrzana u aviokompaniji
 
             try
             {
+                Airline airlineDb = await _context.Airlines.Include(a => a.AirlineDestinations).ThenInclude(ad => ad.Destination)
+                    .FirstOrDefaultAsync(a => a.Id == destination.AirlineId);
+
+                foreach (AirlineDestination ads in airlineDb.AirlineDestinations)
+                {
+                    if (ads.DestinationId == destination.DestinationId)
+                    {
+                        serviceResponse.Message = "Destination already defined in this airline.";
+                        serviceResponse.Success = false;
+                        return serviceResponse;
+                    }
+                }
+
                 AirlineDestination ad = new AirlineDestination
                 {
-                    Airline = destinationAir.Airline,
-                    Destination = destinationAir.Destination
+                    AirlineId = destination.AirlineId,
+                    DestinationId = destination.DestinationId
                 };
 
-                Destination dbDestination = await _context.Destinations.FirstOrDefaultAsync(d => d.City == destinationAir.Destination.City && d.State == destinationAir.Destination.State);
-                Airline dbAirline = await _context.Airlines.FirstOrDefaultAsync(a => a.Id == destinationAir.Airline.Id);    
+                await _context.AirlineDestinations.AddAsync(ad);
+                await _context.SaveChangesAsync();
+
+               /* Destination dbDestination = await _context.Destinations.FirstOrDefaultAsync(d => d.City == destinationAir.Destination.City && d.State == destinationAir.Destination.State);
+                Airline dbAirline = await _context.Airlines.FirstOrDefaultAsync(a => a.Id == destinationAir.Airline.Id);
 
                 if (dbDestination == null)   //destinacija ne postoji, dodaj u listu destinacija
                 {
@@ -88,7 +125,8 @@ namespace WebApp.Services.AirlineService
                 {
                     dbAirline.AirlineDestinations.Add(ad);
                     await _context.SaveChangesAsync();
-                }  
+                }*/
+               //serviceResponse.Data = 
             }
             catch (Exception ex)
             {
@@ -97,11 +135,6 @@ namespace WebApp.Services.AirlineService
             }
 
             return serviceResponse;
-        }
-
-        public Task<ServiceResponse<Airline>> AddFlightToAirline(Flight flight)
-        {
-            throw new NotImplementedException();   
         }
     }
 }

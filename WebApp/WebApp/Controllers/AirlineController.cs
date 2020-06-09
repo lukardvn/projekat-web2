@@ -25,15 +25,21 @@ namespace WebApp.Controllers
         }
 
         [HttpGet("MyAirline")]
-        public async Task<IActionResult> GetMyAirline() //samo potvrdjena prijateljstva
+        public async Task<IActionResult> GetMyAirline() 
         {
             return Ok(await _airlineService.GetMyAirline());
         }
 
-        [HttpPost("AddDestinationToAirline")]
-        public async Task<IActionResult> AddDestination(AirlineDestination ad) 
+        [HttpPost("AddDestination")]
+        public async Task<IActionResult> AddDestination(AddDestinationAirlineDto ad) 
         {
             return Ok(await _airlineService.AddDestinationToAirline(ad));
+        }
+
+        [HttpGet("/{id}/Destinations")] //Airline/x/Destinations
+        public async Task<IActionResult> GetDestinationsOfAirline(int id) 
+        {
+            return Ok(await _airlineService.GetDestinationsOfAirline(id));
         }
     }
 }

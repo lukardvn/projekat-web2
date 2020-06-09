@@ -4,6 +4,7 @@
     <form class="needs-validation" [formGroup]="form"  (ngSubmit)="saveChanges()">     
       <h2 class="mb-3">Airline info 
         <button type="button" class="btn btn-link" (click)="showDestinationsModal(airline.airlineDestinations)">destinations</button>
+        <button type="button" class="btn btn-link" (click)="showAddDestinationModal()">add new destination</button>
         <button type="button" class="btn btn-link" (click)="showFlightsModal(airline.flights)">existing flights</button>
         <button type="button" class="btn btn-link" (click)="showAddFlightModal()">add new flight</button>
       </h2>        
