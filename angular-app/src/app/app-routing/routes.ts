@@ -20,6 +20,7 @@ import { UserProfileComponent } from '../accounts/user-profile/user-profile.comp
 import { AdminAuthGuard } from '../services/auth/admin-auth-guard.service';
 import { NoAccessComponent } from '../accounts/no-access/no-access.component';
 import { AirlineEditComponent } from '../airlines/airline-edit/airline-edit.component';
+import { AllAirlinesComponent } from '../airlines/all-airlines/all-airlines.component';
 
 export const routes: Routes = [
     { path: 'signup-form', component: SignupFormComponent },
@@ -48,5 +49,6 @@ export const routes: Routes = [
     { path: 'accounts/profile/:id', component: UserProfileComponent },
 
     { path: 'airlines/my-airline', component: AirlineEditComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+    { path: 'airlines/all', component: AllAirlinesComponent}
 
 ];

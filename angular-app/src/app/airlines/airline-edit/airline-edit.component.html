@@ -55,8 +55,7 @@
           </div>
       </div>
     <hr class="mb-4">
-    <button class="btn btn-primary btn-lg btn-block">Save Changes</button>
-    </form>
-
-    
+    <button *ngIf="!changed" class="btn btn-primary btn-lg btn-block">Save Changes</button>
+    <p *ngIf="changed">Changes have been saved.</p>
+  </form>
 </div>

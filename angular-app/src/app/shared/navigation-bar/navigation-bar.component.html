@@ -62,8 +62,11 @@
             <li *ngIf="!authService.currentUser" class="nav-item">
               <a class="nav-link" routerLink="/login-form">Log In</a>
             </li>
-            <li *ngIf="authService.currentUser" class="nav-item">
+            <li *ngIf="authService.currentUser  && authService.currentUser.role === 'admin'" class="nav-item">
               <a class="nav-link" routerLink="/list-users">All Users</a>
+            </li>
+            <li *ngIf="authService.currentUser" class="nav-item">
+              <a class="nav-link" routerLink="/accounts/all">All Users</a>
             </li>
             <li *ngIf="authService.currentUser" class="nav-item">
               <a class="nav-link" routerLink="/friends">Friends</a>

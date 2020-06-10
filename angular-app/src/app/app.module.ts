@@ -50,6 +50,8 @@ import { AirlineFlightsEditComponent } from './airlines/airline-flights-edit/air
 import { AddFlightComponent } from './flights/add-flight/add-flight.component';
 import { AddDestinationComponent } from './destinations/add-destination/add-destination.component';
 import { DestinationService } from './services/destination/destination.service';
+import { AllAirlinesComponent } from './airlines/all-airlines/all-airlines.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
   declarations: [
@@ -79,7 +81,8 @@ import { DestinationService } from './services/destination/destination.service';
     AirlineDestinationsEditComponent,
     AirlineFlightsEditComponent,
     AddFlightComponent,
-    AddDestinationComponent
+    AddDestinationComponent,
+    AllAirlinesComponent
     ],
   exports: [
     PhoneFormatDirective,
@@ -97,7 +100,8 @@ import { DestinationService } from './services/destination/destination.service';
     BrowserAnimationsModule,
     MatDialogModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    DataTablesModule
   ],
   providers: [
     UserService,

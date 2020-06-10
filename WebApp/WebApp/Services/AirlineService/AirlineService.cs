@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,14 @@ namespace WebApp.Services.AirlineService
     {
         private readonly DataContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IMapper _mapper;
 
-        public AirlineService(DataContext context, IHttpContextAccessor httpContextAccessor)
+        public AirlineService(DataContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper)
         {
             _context = context;
             _httpContextAccessor = httpContextAccessor;
+            _mapper = mapper;
+
         }
         private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         private string GetUserPrivilege() => _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.Role);
@@ -134,6 +138,38 @@ namespace WebApp.Services.AirlineService
                 serviceResponse.Success = false;
             }
 
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<UpdateAirlineDto>> UpdateAirline(UpdateAirlineDto updatedAirline)
+        {
+            ServiceResponse<UpdateAirlineDto> serviceResponse = new ServiceResponse<UpdateAirlineDto>();
+            try
+            {
+                Airline airline = await _context.Airlines.FirstOrDefaultAsync(a => a.Id == updatedAirline.Id);
+                airline.Name = updatedAirline.Name;
+                airline.Address = updatedAirline.Address;
+                airline.Description = updatedAirline.Description;
+
+                _context.Airlines.Update(airline);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = _mapper.Map<UpdateAirlineDto>(airline);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<Airline>>> GetAllAirlines()
+        {
+            ServiceResponse<List<Airline>> serviceResponse = new ServiceResponse<List<Airline>>();
+            List<Airline> dbAirlines = await _context.Airlines.ToListAsync();
+            serviceResponse.Data = dbAirlines.ToList();   //kao kod metode AddUser
             return serviceResponse;
         }
     }

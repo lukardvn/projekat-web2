@@ -16,6 +16,7 @@ import { AddDestinationComponent } from 'src/app/destinations/add-destination/ad
 export class AirlineEditComponent implements OnInit {
   airline: any;
   form: FormGroup = new FormGroup({});
+  changed: boolean = false;
   
   constructor(private airlineService: AirlineService,
               private fb: FormBuilder,
@@ -50,12 +51,16 @@ export class AirlineEditComponent implements OnInit {
   }
 
   saveChanges() {
-    this.setProperties();
-    
-    /*this.user = new User({
-      ...this.form.value
-    });*/
-    //this.userService.updateSingle(this.user).subscribe();
+    this.setProperties(); 
+    this.airlineService.updateSingle(this.airline).subscribe(result => {
+      console.log(result);
+      if (result.success === true)
+        this.changed = true;
+      else
+        this.changed = false;
+    }, err => {
+      console.log(err);
+    })
   }
 
   setProperties(){
@@ -64,6 +69,7 @@ export class AirlineEditComponent implements OnInit {
     this.airline.address = this.form.value.address;
   }
 
+  // MODALS...
   showDestinationsModal(airlineDestinations){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;

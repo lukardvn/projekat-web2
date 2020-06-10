@@ -24,6 +24,13 @@ namespace WebApp.Controllers
             _airlineService = airlineService;
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllAirlines()
+        {
+            return Ok(await _airlineService.GetAllAirlines());
+        }
+
         [HttpGet("MyAirline")]
         public async Task<IActionResult> GetMyAirline() 
         {
@@ -40,6 +47,19 @@ namespace WebApp.Controllers
         public async Task<IActionResult> GetDestinationsOfAirline(int id) 
         {
             return Ok(await _airlineService.GetDestinationsOfAirline(id));
+        }
+
+        [HttpPut] // PUT localhost/Airline
+        public async Task<IActionResult> UpdateAirline(UpdateAirlineDto updatedAirline)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            ServiceResponse<UpdateAirlineDto> response = await _airlineService.UpdateAirline(updatedAirline);
+
+            if (response.Data == null)
+                return NotFound(response);
+            return Ok(response);
         }
     }
 }

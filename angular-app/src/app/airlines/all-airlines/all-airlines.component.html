@@ -1,0 +1,41 @@
+<!--<div class="center-narrow">
+    <h2>Airlines</h2>
+      <div class="table-responsive">
+        <table class="table table-striped table-sm">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Address</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let airline of airlines">
+                <td>{{airline.name}}</td>
+                <td>{{airline.description}}</td>
+                <td>{{airline.address}}</td>
+                <td><button type="button" class="btn btn-info" [routerLink]="['/airlines/', airline.id]">info</button></td>
+            </tr>  
+          </tbody>
+        </table>
+    </div>
+</div>-->
+<div class="center-narrow">
+   <table datatable class="row-border hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+         <tr *ngFor="let airline of airlines">
+            <td>{{airline.name}}</td>
+            <td>{{airline.description}}</td>
+            <td>{{airline.address}}</td>
+        </tr>  
+      </tbody>
+    </table>
+</div>

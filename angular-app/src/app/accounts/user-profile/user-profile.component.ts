@@ -46,7 +46,7 @@ export class UserProfileComponent implements OnInit {
       if (response.success === false)
         this.alreadySent = true;
       else
-        this.router.navigateByUrl("/friends");
+        this.router.navigateByUrl("/accounts/all");
     }, err => {
       console.log(err);
     });
@@ -54,7 +54,7 @@ export class UserProfileComponent implements OnInit {
 
   unfriend(user){
     this.friendshipService.cancelRequest(user.id).subscribe(() => {
-      this.router.navigateByUrl("/friends");
+      this.router.navigateByUrl("/accounts/all");
     }, err => {
       console.log(err);
     });

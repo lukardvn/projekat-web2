@@ -16,15 +16,6 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  //samo admin moze da cita sve usere
-  get() { //mislim da ovo nista ne treba, da httpClient radi sve to za nas uz pomoc interceptora
-    let headers = new Headers();
-    let token = localStorage.getItem('token');
-    headers.append('Authorization', 'Bearer ' + token);
-    let options = new RequestOptions({ headers: headers });
-    //return this.http.get<any>(`${this.baseUrl}${this.userRoute}/GetAll`, options);
-  }
-
   getAll(): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}${this.userRoute}/GetAll`);
   }
@@ -55,4 +46,13 @@ export class UserService {
   userExists(email: string) {
     return this.http.get(`${this.baseUrl}${this.authRoute}/AlreadyExists/${email}`);
   }
+
+  /*samo admin moze da cita sve usere
+  get() { //mislim da ovo nista ne treba, da httpClient radi sve to za nas uz pomoc interceptora
+    let headers = new Headers();
+    let token = localStorage.getItem('token');
+    headers.append('Authorization', 'Bearer ' + token);
+    let options = new RequestOptions({ headers: headers });
+    //return this.http.get<any>(`${this.baseUrl}${this.userRoute}/GetAll`, options);
+  }*/
 }
