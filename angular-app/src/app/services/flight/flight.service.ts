@@ -27,7 +27,6 @@ export class FlightService {
 
   addFlight(flight: Flight) : Observable<any> {
     const body = JSON.stringify(flight);
-    console.log(body);
     return this.http.post(this.baseUrl + this.flightRoute, body, {'headers': this.headers });
   }
 }

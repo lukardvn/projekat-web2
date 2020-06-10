@@ -8,6 +8,7 @@
         <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login-form">login</a></li>
         <li *ngIf="!authService.isLoggedIn()"><a routerLink="/signup-form">signup</a></li>
         <li *ngIf="authService.isLoggedIn()"><a routerLink="/edit-profile">profile</a></li>
+        <li *ngIf="authService.isLoggedIn()"><a routerLink="/airlines/all">airlines</a></li>
         <li *ngIf="authService.isLoggedIn()"><a routerLink="/friends">friends</a></li>
         <li *ngIf="authService.isLoggedIn() && authService.currentUser.role === 'admin'"><a routerLink="/airlines/my-airline">airline edit TEST</a></li>
     </ul>

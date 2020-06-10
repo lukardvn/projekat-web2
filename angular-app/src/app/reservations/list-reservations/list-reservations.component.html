@@ -17,9 +17,11 @@
           <td>{{reservation.id}}</td>
           <td>{{reservation.departingFlight.origin}}</td>
           <td>{{reservation.departingFlight.destination}}</td>
-          <td>{{reservation.returningFlight.origin}}</td>
-          <td>{{reservation.returningFlight.destination}}</td>
-          <td><button>Details</button></td>
+          <td *ngIf="reservation.returningFlight">{{reservation.returningFlight.origin}}</td>
+          <td *ngIf="!reservation.returningFlight"></td>
+          <td *ngIf="reservation.returningFlight">{{reservation.returningFlight.destination}}</td>
+          <td *ngIf="!reservation.returningFlight"></td>
+          <td><button class="btn btn-info" [routerLink]="['/list-reservations/', reservation.id]">Details</button></td>
           </tr>
       </tbody>
     </table>

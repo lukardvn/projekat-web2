@@ -21,6 +21,7 @@ import { AdminAuthGuard } from '../services/auth/admin-auth-guard.service';
 import { NoAccessComponent } from '../accounts/no-access/no-access.component';
 import { AirlineEditComponent } from '../airlines/airline-edit/airline-edit.component';
 import { AllAirlinesComponent } from '../airlines/all-airlines/all-airlines.component';
+import { ReservationDetailComponent } from '../reservations/reservation-detail/reservation-detail.component';
 
 export const routes: Routes = [
     { path: 'signup-form', component: SignupFormComponent },
@@ -36,6 +37,7 @@ export const routes: Routes = [
     { path: 'returning-flights', component: ListReturningFlightsComponent },
     
     //{ path: 'friends/:id/list-reservations', component: FriendReservationsComponent },
+    { path: 'list-reservations/:id',  component: ReservationDetailComponent, canActivate: [AuthGuard] },
     { path: 'list-reservations',  component: ListReservationsComponent, canActivate: [AuthGuard] },
     { path: 'reservation-summary', component: ReservationSummaryComponent, canActivate: [AuthGuard]},
     { path: 'reservation-summary/success', component: SuccessComponent, canActivate: [AuthGuard]},

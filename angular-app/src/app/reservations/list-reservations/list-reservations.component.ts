@@ -14,7 +14,6 @@ export class ListReservationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.reservationService.getReservations().subscribe(result => {
-      console.log(result.data);
       this.reservations = [...result.data];
     }, err=> {
       console.log(err);

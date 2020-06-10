@@ -32,7 +32,7 @@ namespace WebApp.Services.FlightService
                                             .FirstOrDefaultAsync(a => a.Id == newFlight.Airline.Id);
                 Flight flight = _mapper.Map<Flight>(newFlight);
                 var vreme = flight.LandingTime.Subtract(flight.TakeoffTime);
-                flight.Duration = vreme.Hours + "h" + vreme.Minutes + "s";
+                flight.Duration = vreme.Hours + "h" + vreme.Minutes + "m";
 
                 airline.Flights.Add(flight);
                 _context.Airlines.Update(airline);

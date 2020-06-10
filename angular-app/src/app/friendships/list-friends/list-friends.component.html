@@ -1,7 +1,7 @@
 <div class="center-narrow">
 <h2>Friends</h2>
   <div class="table-responsive">
-    <table datatable class="table table-sm">
+    <table datatable class="table table-striped table-sm">
       <thead>
         <tr>
           <th>Email</th>
@@ -26,7 +26,7 @@
           <td><button (click)="friendsDetails(friend)" [routerLink]="'/friends/' + friend.id + '/list-friends'">friends</button></td>-->
           <td><button type="button" class="btn btn-info" (click)="showFriendsModule(friend)">friends</button></td>
           <td><button type="button" class="btn btn-info" (click)="showReservationsModule(friend)">reservations</button></td>
-          <td><button type="button" class="btn btn-danger" (click)="unfriend(friend)">x</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="unfriend(friend)">remove</button></td>
         </tr>
       </tbody>
     </table>

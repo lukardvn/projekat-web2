@@ -11,5 +11,6 @@ namespace WebApp.Services.ReservationService
     {
         Task<ServiceResponse<List<Reservation>>> GetAllReservations();
         Task<ServiceResponse<List<Reservation>>> AddReservation(AddReservationDto newReservation);
+        Task<ServiceResponse<Reservation>> GetSingle(int id);
     }
 }

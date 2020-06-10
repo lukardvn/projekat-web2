@@ -52,6 +52,7 @@ import { AddDestinationComponent } from './destinations/add-destination/add-dest
 import { DestinationService } from './services/destination/destination.service';
 import { AllAirlinesComponent } from './airlines/all-airlines/all-airlines.component';
 import { DataTablesModule } from 'angular-datatables';
+import { ReservationDetailComponent } from './reservations/reservation-detail/reservation-detail.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { DataTablesModule } from 'angular-datatables';
     AirlineFlightsEditComponent,
     AddFlightComponent,
     AddDestinationComponent,
-    AllAirlinesComponent
+    AllAirlinesComponent,
+    ReservationDetailComponent
     ],
   exports: [
     PhoneFormatDirective,

@@ -39,5 +39,12 @@ namespace WebApp.Controllers
 
             return Ok(await _reservationService.AddReservation(newReservation));
         }
+
+        [HttpGet("{id}")] //GET localhost/Reservations/GetAll za rezervacije trenutnog korisnika
+        public async Task<IActionResult> GetSingle(int id)
+        {
+            //int userId = int.Parse(User.Claims.FirstOrDefault(r =W> r.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(await _reservationService.GetSingle(id));
+        }
     }
 }

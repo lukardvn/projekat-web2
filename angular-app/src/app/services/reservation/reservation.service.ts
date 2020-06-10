@@ -24,4 +24,9 @@ export class ReservationService {
     const body = JSON.stringify(reservation);
     return this.http.post(`${this.baseUrl}/AddReservation`, body, { 'headers': this.headers });
   }
+
+  getSingle(id: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
+  }
+
 }

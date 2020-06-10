@@ -1,0 +1,103 @@
+<div class="center-narrow" *ngIf="reservation">
+  <h2 style="text-align: center; color: brown;" class="mb-3">Reservation ID {{reservation.id}}</h2>   
+  <div class="row">
+    <div class="col">
+      <div class="col-md-8 order-md-1">
+        <h2 class="mb-3"></h2>   
+        <h2 class="mb-3">Flight #1</h2>   
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info"  for="firstName">Origin</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.departingFlight.origin}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info"  for="firstName">Destination</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.departingFlight.destination}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info">Takeoff time</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.departingFlight.takeoffTime | date:'medium'}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info">Landing time</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.departingFlight.landingTime | date:'medium'}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info">Price</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.departingFlight.price | currency}}</label>
+            </div>
+        </div>
+        <div class="mb-3">
+        </div>
+        <hr class="mb-4">
+      </div>
+    </div>
+    <div class="col" *ngIf="reservation.returningFlight">
+      <div class="col-md-8 order-md-1">
+        <h2 class="mb-3"></h2>   
+        <h2 class="mb-3">Flight #2</h2>   
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info"  for="firstName">Origin</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.returningFlight.origin}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info"  for="firstName">Destination</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.returningFlight.destination}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info">Takeoff time</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.returningFlight.takeoffTime | date:'medium'}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info">Landing time</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.returningFlight.landingTime | date:'medium'}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info">Price</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{reservation.returningFlight.price | currency}}</label>
+            </div>
+        </div>
+        <div class="mb-3">
+        </div>
+        <hr class="mb-4">
+      </div>
+    </div>
+  </div>
+</div>

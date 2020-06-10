@@ -12,7 +12,7 @@ import { AirlineService } from 'src/app/services/airline/airline.service';
 })
 export class AddFlightComponent implements OnInit {
   form: FormGroup = new FormGroup({});
-
+  added: boolean;
   availableDests = this.airlineService.availableAirlineDestinations;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
@@ -21,8 +21,6 @@ export class AddFlightComponent implements OnInit {
               private airlineService: AirlineService) { }
 
   ngOnInit(): void {
-    console.log(this.data);
-
     this.form = this.fb.group({
       origin: ['', Validators.required],
       destination: ['', Validators.required],
@@ -33,8 +31,6 @@ export class AddFlightComponent implements OnInit {
       distance: ['', Validators.required],
       seatsLeft: ['', Validators.required]
     });
-
-    console.log(this.availableDests);
   }
 
   get f() { return this.form.controls; }
@@ -44,16 +40,16 @@ export class AddFlightComponent implements OnInit {
       let newFlight = new Flight({
         ...this.form.value,
         Airline: this.data
-      });
+    });
   
-      console.log(newFlight);
-      this.flightService.addFlight(newFlight).subscribe(result => {
-        console.log(result);
-      }, err => {
-        console.log(err);
-      })
-    }
-
-    
+    this.flightService.addFlight(newFlight).subscribe(result => {
+      if (result.success === true) 
+        this.added = true;
+      else
+        this.added = false;
+    }, err => {
+      console.log(err);
+    })
   }
+}   
 }

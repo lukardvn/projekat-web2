@@ -123,6 +123,7 @@
                                             <div>
                                                 <span class="form-label"></span>
                                                 <button [disabled]="!form.valid" type="submit" style="background-color: green; color: whitesmoke;" class="btn btn-block form-control">Add</button>
+                                                <div *ngIf="added">Flight successfully added.</div>
                                             </div>
                                         </div>
                                     </div>  

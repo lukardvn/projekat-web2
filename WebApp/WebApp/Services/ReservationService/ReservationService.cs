@@ -89,5 +89,30 @@ namespace WebApp.Services.ReservationService
             return serviceResponse;
             */
         }
+
+        public async Task<ServiceResponse<Reservation>> GetSingle(int id)
+        {
+            ServiceResponse<Reservation> serviceResponse = new ServiceResponse<Reservation>();
+            try
+            {
+                Reservation reservation = await _context.Reservations.Include(r => r.DepartingFlight).ThenInclude(df => df.Airline)
+                                                                     .Include(r => r.ReturningFlight).ThenInclude(rf => rf.Airline)
+                                                                     .Where(r => r.Id == id).FirstOrDefaultAsync();
+                if (reservation == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Reservation not found.";
+                    return serviceResponse;
+                }
+                serviceResponse.Data = reservation;
+
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
     }
 }
