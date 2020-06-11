@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using WebApp.Data;
 using WebApp.Dtos.Reservation;
 using WebApp.Models;
+using MailKit.Net.Smtp;
+using MimeKit;
+using System.Data;
 
 namespace WebApp.Services.ReservationService
 {
@@ -61,14 +64,58 @@ namespace WebApp.Services.ReservationService
                 await _context.SaveChangesAsync();
 
                 serviceResponse.Data = user.Reservations.ToList();
+
+                //poslati imejl
+                string pattern = @"Reservation details..
+                                   Flight #1 : Origin: {0} | Destination: {1} | Takeoff time: {2} | Landing time: {3} | Duration: {4}.
+                                   ";
+
+                string emailData = string.Format(pattern, newReservation.DepartingFlight.Origin, newReservation.DepartingFlight.Destination,
+                    newReservation.DepartingFlight.TakeoffTime, newReservation.DepartingFlight.LandingTime, newReservation.DepartingFlight.Duration);
+
+                if (newReservation.ReturningFlight != null)
+                {
+                    string pattern2 = @"
+                                   Flight #2 : Origin: {0} | Destination: {1} | Takeoff time: {2} | Landing time: {3} | Duration: {4}.
+                                   ";
+                    string emailData2 = string.Format(pattern2, newReservation.ReturningFlight.Origin, newReservation.ReturningFlight.Destination,
+                        newReservation.ReturningFlight.TakeoffTime, newReservation.ReturningFlight.LandingTime, newReservation.ReturningFlight.Duration);
+
+                    emailData = emailData + emailData2;
+                }
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("Booking details", "rluka996@gmail.com"));
+                message.To.Add(new MailboxAddress("Luka", "rluka996@gmail.com"));
+                message.Subject = "Booking details";
+                message.Body = new TextPart("plain")
+                {
+                    Text = emailData
+                };
+
+                using (var client = new MailKit.Net.Smtp.SmtpClient())
+                {
+
+                    client.Connect("smtp.gmail.com", 587, false);
+
+                    //SMTP server authentication if needed
+                    client.Authenticate("rluka996", "kostadin");
+
+                    client.Send(message);
+
+                    client.Disconnect(true);
+                }
+
             }
             catch (Exception ex)
             {
                 serviceResponse.Message = ex.Message;
+                
                 serviceResponse.Success = false;
             }
             return serviceResponse;
 
+            #region druginacin
             /*
             ServiceResponse<List<Reservation>> serviceResponse = new ServiceResponse<List<Reservation>>();
             try
@@ -88,6 +135,7 @@ namespace WebApp.Services.ReservationService
             }
             return serviceResponse;
             */
+            #endregion druginacin
         }
 
         public async Task<ServiceResponse<Reservation>> GetSingle(int id)

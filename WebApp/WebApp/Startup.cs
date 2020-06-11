@@ -49,7 +49,10 @@ namespace WebApp
                             builder.AllowAnyHeader();
                             builder.AllowAnyMethod();
                         });
-                });
+                }); 
+            var notificationMetadata = Configuration.GetSection("NotificationMetadata").Get<NotificationMetadata>();
+            services.AddSingleton(notificationMetadata);
+            
             services.AddControllers();
 
             services.AddAutoMapper(typeof(Startup));
@@ -77,6 +80,8 @@ namespace WebApp
             services.AddScoped<IFriendshipService, FriendshipService>();
             services.AddScoped<IAirlineService, AirlineService>();
             services.AddScoped<IDestinationService, DestinationService>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

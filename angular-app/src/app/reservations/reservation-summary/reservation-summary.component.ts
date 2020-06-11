@@ -24,7 +24,7 @@ export class ReservationSummaryComponent implements OnInit {
     this.returningFlight = this.reservationService.selectedReturningFlight;
   }
 
-  confirmReservation() {
+  confirmReservation() {  // ovde bi trebalo poslati mejl
     let reservation = new ReservationDto({
       DepartingFlight: this.departingFlight,
       ReturningFlight: this.returningFlight,
