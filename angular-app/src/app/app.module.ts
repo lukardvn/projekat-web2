@@ -53,6 +53,7 @@ import { DestinationService } from './services/destination/destination.service';
 import { AllAirlinesComponent } from './airlines/all-airlines/all-airlines.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ReservationDetailComponent } from './reservations/reservation-detail/reservation-detail.component';
+import { AnonymousGuard } from './services/auth/anonymous-guard.service';
 
 @NgModule({
   declarations: [
@@ -110,6 +111,7 @@ import { ReservationDetailComponent } from './reservations/reservation-detail/re
     FlightService,
     AuthService,
     AuthGuard,
+    AnonymousGuard,
     AdminAuthGuard,
     ReservationService,
     FriendshipService,

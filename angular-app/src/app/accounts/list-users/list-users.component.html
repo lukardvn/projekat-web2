@@ -1,11 +1,11 @@
-<head>
+<!--<head>
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.css"/>
 </head>
-<body>
+<body>-->
   <div class="center-narrow">
     <h2>Users</h2>
-    <div class="table-responsive">
-      <table id="myTable" class="table table-hover table-borderless">
+    <div class="table-responsive" >
+      <table *ngIf="users" datatable class="table table-hover table-striped">
         <thead>
           <tr>
             <th>Email</th>
@@ -35,14 +35,14 @@
       </table>
     </div>
   </div>
-
+<!--
   <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
   <script>
     $(document).ready( function () {
       $('#myTable').DataTable();
     } );
   </script>
-</body>
+</body>-->
     <!--
 <div class="center-narrow">
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">

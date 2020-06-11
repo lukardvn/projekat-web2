@@ -9,7 +9,7 @@ import { FriendshipService } from 'src/app/services/friendship/friendship.servic
   styleUrls: ['./all-accounts.component.css']
 })
 export class AllAccountsComponent implements OnInit {
-  users: Array<any> = [];
+  users: any;
   currentId = this.authService.currentUser.nameid;
 
   constructor(private userService: UserService,

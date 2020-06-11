@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { map, retry } from 'rxjs/operators';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   authRoute = "/Auth";
   headers = { 'content-type': 'application/json' }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(credentials: any) {
     return this.http.post(`${this.baseUrl}${this.authRoute}/Login`, JSON.stringify(credentials), { 'headers': this.headers })
@@ -28,6 +29,7 @@ export class AuthService {
 
   logout() {  //samo obrisati token iz localStorage-a
     localStorage.removeItem('token');
+    this.router.navigateByUrl("/home");
   }
 
   isLoggedIn() {

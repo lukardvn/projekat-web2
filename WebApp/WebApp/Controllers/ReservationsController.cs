@@ -46,5 +46,14 @@ namespace WebApp.Controllers
             //int userId = int.Parse(User.Claims.FirstOrDefault(r =W> r.Type == ClaimTypes.NameIdentifier).Value);
             return Ok(await _reservationService.GetSingle(id));
         }
+
+        [HttpDelete("CancelReservation/{reservationId}")]
+        public async Task<IActionResult> Cancel(int reservationId)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            return Ok(await _reservationService.CancelReservation(reservationId));
+        }
     }
 }

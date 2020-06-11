@@ -29,4 +29,9 @@ export class ReservationService {
     return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
 
+  cancelReservation(reservationId: number) {
+    console.log(reservationId);
+    return this.http.delete(`${this.baseUrl}/CancelReservation/${reservationId}`);
+  }
+
 }

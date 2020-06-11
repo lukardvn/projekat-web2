@@ -114,5 +114,42 @@ namespace WebApp.Services.ReservationService
             }
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<bool>> CancelReservation(int reservationId)
+        {
+            ServiceResponse<bool> serviceResponse = new ServiceResponse<bool>();
+            try
+            {
+                Reservation dbReservation = await _context.Reservations.Include(r => r.DepartingFlight).FirstOrDefaultAsync(r => r.Id == reservationId);
+                if (dbReservation == null)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Message = "Reservation not found.";
+                    return serviceResponse;
+                }
+
+                var currentTime = DateTime.Now;
+                var timeLeft = dbReservation.DepartingFlight.TakeoffTime.Subtract(currentTime);
+                if (timeLeft.TotalHours < 3)
+                {
+                    serviceResponse.Success = false;
+                    serviceResponse.Data = false;
+                    serviceResponse.Message = "There is less then 3 hours left to the first flight.";
+                }
+                else //sve ok, brisi rezervaciju
+                {
+                    _context.Reservations.Remove(dbReservation);
+                    await _context.SaveChangesAsync();
+                    serviceResponse.Data = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
     }
 }

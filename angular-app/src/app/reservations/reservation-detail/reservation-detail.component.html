@@ -100,4 +100,8 @@
       </div>
     </div>
   </div>
+  <div class="row">
+    <button class="btn btn-danger btn-block" (click)=cancelReservation(reservation.id)>Cancel</button>
+    <div class="alert" *ngIf="noTime">There's less then 3 hours left till flight, you can't cancel it.</div>
+  </div>
 </div>

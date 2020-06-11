@@ -17,7 +17,7 @@ export class ListFriendsComponent implements OnInit {
 
   ngOnInit(): void {
     this.friendshipService.getFriends().subscribe(result => {
-      this.friends = result.data;
+      this.friends = [...result.data];
     });
   }
 

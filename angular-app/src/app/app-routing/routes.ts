@@ -22,10 +22,11 @@ import { NoAccessComponent } from '../accounts/no-access/no-access.component';
 import { AirlineEditComponent } from '../airlines/airline-edit/airline-edit.component';
 import { AllAirlinesComponent } from '../airlines/all-airlines/all-airlines.component';
 import { ReservationDetailComponent } from '../reservations/reservation-detail/reservation-detail.component';
+import { AnonymousGuard } from '../services/auth/anonymous-guard.service';
 
 export const routes: Routes = [
-    { path: 'signup-form', component: SignupFormComponent },
-    { path: 'login-form', component: LoginFormComponent },
+    { path: 'signup-form', component: SignupFormComponent, canActivate: [AnonymousGuard] },
+    { path: 'login-form', component: LoginFormComponent, canActivate: [AnonymousGuard] },
     { path: 'edit-profile/:id', component: EditProfileComponent, canActivate: [AuthGuard] },
     { path: 'edit-profile', component: EditProfileComponent, canActivate: [AuthGuard] },
     { path: 'list-users', component: ListUsersComponent, canActivate: [AuthGuard, AdminAuthGuard] },
