@@ -1,0 +1,29 @@
+<h1>Discounted flights available for quick booking</h1>
+<div class="table-responsive">
+  <table datatable *ngIf="data" class="table table-striped table-sm">
+    <thead>
+        <tr>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Date</th>
+        <th>Takeoff time</th>
+        <th>Landing time</th>
+        <th>Old price</th>
+        <th>20% off</th> 
+        <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let flight of data">
+        <td>{{flight.origin}}</td>
+        <td>{{flight.destination}}</td>
+        <td>{{flight.takeoffTime | date}}</td>
+        <td>{{flight.takeoffTime | date:'h:mm a z'}}</td>
+        <td>{{flight.landingTime | date:'h:mm a z'}}</td>
+        <td>{{flight.price * 1.2 | currency}}</td>
+        <td>{{flight.price | currency}}</td>
+        <td><button (click)="reserve(flight)">book</button></td>
+        </tr>
+    </tbody>
+  </table>
+</div>

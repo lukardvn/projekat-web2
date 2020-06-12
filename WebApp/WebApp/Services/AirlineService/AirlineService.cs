@@ -172,5 +172,22 @@ namespace WebApp.Services.AirlineService
             serviceResponse.Data = dbAirlines.ToList();   //kao kod metode AddUser
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<Airline>> GetSingle(int id)
+        {
+            ServiceResponse<Airline> serviceResponse = new ServiceResponse<Airline>();
+            Airline dbAirline = await _context.Airlines.Include(a => a.AirlineDestinations).ThenInclude(ad => ad.Destination)
+                                                        .Include(a => a.Flights)
+                                              .FirstOrDefaultAsync(u => u.Id == id);
+
+            if (dbAirline == null)
+            {
+                serviceResponse.Message = "Airline not found.";
+                serviceResponse.Success = false;
+                return serviceResponse;
+            }
+            serviceResponse.Data = dbAirline;
+            return serviceResponse;
+        }
     }
 }

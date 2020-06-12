@@ -62,9 +62,6 @@
             <li *ngIf="!authService.currentUser" class="nav-item">
               <a class="nav-link" routerLink="/login-form">Log In</a>
             </li>
-            <li *ngIf="authService.currentUser  && authService.currentUser.role === 'admin'" class="nav-item">
-              <a class="nav-link" routerLink="/list-users">All Users</a>
-            </li>
             <li *ngIf="authService.currentUser" class="nav-item">
               <a class="nav-link" routerLink="/accounts/all">All Users</a>
             </li>
@@ -87,6 +84,12 @@
             </li>
             <li class="nav-item" *ngIf="authService.currentUser && authService.currentUser.role === 'admin'">
               <a class="nav-link admin" routerLink="/airlines/my-airline">Airline</a>
+            </li>
+            <li *ngIf="authService.currentUser  && authService.currentUser.role === 'admin'" class="nav-item">
+              <a class="nav-link admin" routerLink="/list-users">All Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/airlines/all">Airlines</a>
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">

@@ -57,6 +57,8 @@ import { AnonymousGuard } from './services/auth/anonymous-guard.service';
 import { AgmCoreModule } from '@agm/core';
 import { GoogleMapsModule } from '@angular/google-maps'
 import { AirlineMapComponent } from './airlines/airline-map/airline-map.component';
+import { AirlineDetailComponent } from './airlines/airline-detail/airline-detail.component';
+import { QuickReservationsComponent } from './airlines/quick-reservations/quick-reservations.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,9 @@ import { AirlineMapComponent } from './airlines/airline-map/airline-map.componen
     AddDestinationComponent,
     AllAirlinesComponent,
     ReservationDetailComponent,
-    AirlineMapComponent
+    AirlineMapComponent,
+    AirlineDetailComponent,
+    QuickReservationsComponent
     ],
   exports: [
     PhoneFormatDirective,
@@ -140,7 +144,8 @@ import { AirlineMapComponent } from './airlines/airline-map/airline-map.componen
     AirlineFlightsEditComponent,
     AddFlightComponent,
     AddDestinationComponent,
-    AirlineMapComponent
+    AirlineMapComponent,
+    QuickReservationsComponent
   ]
 })
 export class AppModule { }

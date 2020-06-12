@@ -61,5 +61,12 @@ namespace WebApp.Controllers
                 return NotFound(response);
             return Ok(response);
         }
+
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetSingle(int id)
+        {
+            return Ok(await _airlineService.GetSingle(id));
+        }
     }
 }

@@ -48,3 +48,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 15px;
   margin: 0 auto;
 }
+
+
+.zadijaloge.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+  overflow: auto;
+  pointer-events: auto;  
+}

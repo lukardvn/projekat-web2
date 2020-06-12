@@ -33,7 +33,7 @@ export class ReservationSummaryComponent implements OnInit {
     
     this.reservationService.addReservation(reservation).subscribe(result => {
       console.log(result.data);  //redirect to next page...
-      this.router.navigate(['/reservation-summary/success']);
+      this.router.navigateByUrl('/reservation-summary/success');
     }, err => {
       console.log(err);
     })

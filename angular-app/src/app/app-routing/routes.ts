@@ -24,6 +24,7 @@ import { AllAirlinesComponent } from '../airlines/all-airlines/all-airlines.comp
 import { ReservationDetailComponent } from '../reservations/reservation-detail/reservation-detail.component';
 import { AnonymousGuard } from '../services/auth/anonymous-guard.service';
 import { AirlineMapComponent } from '../airlines/airline-map/airline-map.component';
+import { AirlineDetailComponent } from '../airlines/airline-detail/airline-detail.component';
 
 export const routes: Routes = [
     { path: 'signup-form', component: SignupFormComponent, canActivate: [AnonymousGuard] },
@@ -54,6 +55,7 @@ export const routes: Routes = [
 
     { path: 'airlines/my-airline', component: AirlineEditComponent, canActivate: [AuthGuard, AdminAuthGuard] },
     { path: 'airlines/all', component: AllAirlinesComponent},
-    { path: 'airline/map', component: AirlineMapComponent }
+    { path: 'airline/map', component: AirlineMapComponent },
+    { path: 'airlines/:id', component: AirlineDetailComponent}
 
 ];

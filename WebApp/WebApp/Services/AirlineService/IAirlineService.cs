@@ -15,5 +15,6 @@ namespace WebApp.Services.AirlineService
         Task<ServiceResponse<List<Destination>>> GetDestinationsOfAirline(int airlineId);
         Task<ServiceResponse<UpdateAirlineDto>> UpdateAirline(UpdateAirlineDto updatedAirline);
         Task<ServiceResponse<List<Airline>>> GetAllAirlines();
+        Task<ServiceResponse<Airline>> GetSingle(int id);
     }
 }

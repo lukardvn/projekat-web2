@@ -12,7 +12,7 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./list-users.component.css']
 })
 export class ListUsersComponent implements OnInit {
-  users: Array<any> = [];
+  users: any;
   currentId = this.authService.currentUser.nameid;
   usersToShow;
 

@@ -30,7 +30,6 @@ export class ReservationService {
   }
 
   cancelReservation(reservationId: number) {
-    console.log(reservationId);
     return this.http.delete(`${this.baseUrl}/CancelReservation/${reservationId}`);
   }
 

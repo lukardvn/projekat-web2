@@ -19,12 +19,10 @@ export class ReservationDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this.reservationService.getSingle(+id).subscribe(result => {
       this.reservation = result.data;
-      console.log(this.reservation);
     })
   }
 
   cancelReservation(id) {//ovde poziv servisu za brisanje rezervacije iz baze
-    console.log(id);
     this.reservationService.cancelReservation(id).subscribe((result:any) => {
       if (result.data === true)
         this.router.navigateByUrl("/list-reservations");     

@@ -29,6 +29,7 @@
           <th>Description</th>
           <th>Address</th>
           <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -36,6 +37,7 @@
             <td>{{airline.name}}</td>
             <td>{{airline.description}}</td>
             <td>{{airline.address}}</td>
+            <td><buton class="btn btn-info" [routerLink]="['/airlines/', airline.id]">Details</buton></td>
             <td><button (click)="showMapModal(airline.address)" class="btn btn-success">map</button></td>
         </tr>  
       </tbody>

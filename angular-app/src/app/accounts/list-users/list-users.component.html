@@ -3,7 +3,7 @@
 </head>
 <body>-->
   <div class="center-narrow">
-    <h2>Users</h2>
+    <h2>Users - Admin's view</h2>
     <div class="table-responsive" >
       <table *ngIf="users" datatable class="table table-hover table-striped">
         <thead>
@@ -13,7 +13,6 @@
             <th>Surname</th>
             <th>City</th>
             <th>Phone number</th>
-            <th></th>
             <th></th>
             <th></th>
           </tr>
@@ -26,9 +25,9 @@
               <td>{{user.surname}}</td>
               <td>{{user.city}}</td>
               <td>{{user.phoneNumber}}</td>
-              <td><button type="button" class="btn btn-success" (click)="addFriend(user.id)">add</button></td>
-              <td><button type="button" class="btn btn-info" [routerLink]="['/edit-profile/', user.id]">edit</button></td>
-              <td><button type="button" class="btn btn-danger" (click)="delete(user.id)">delete</button></td>
+              <!--<td><button type="button" class="btn btn-success" (click)="addFriend(user.id)">add</button></td>-->
+              <td><button type="button" class="btn btn-dark" [routerLink]="['/edit-profile/', user.id]">edit</button></td>
+              <td><button type="button" class="btn btn-dark" (click)="delete(user.id)">delete</button></td>
             </tr>
           </ng-container>  
         </tbody>

@@ -31,7 +31,7 @@ export class AirlineService {
     return this.http.put<any>(`${this.baseUrl}`, body, {'headers': this.headers});
   }
 
-  getLocation(){
-    return this.http.get<any>("https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyASLJKMtrL7p5SdyDdU-Syvft0gf4stec0");
+  getSingle(id: number) {
+    return this.http.get<any>(`${this.baseUrl}/${id}`);
   }
 }

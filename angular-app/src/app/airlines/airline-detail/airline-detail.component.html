@@ -1,0 +1,50 @@
+<div class="center-narrow" *ngIf="airline">
+    <div class="col-md-8 order-md-1">
+        
+        <div class="row">
+            <h2 class="mb-3">Airline info page 
+                <button (click)="showQuickReservationsModal(airline.flights)" type="button" class="btn btn-link">quick bookings</button>
+            </h2>
+        </div>  
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info"  for="name">Name</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{airline.name}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info" for="address">Address</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{airline.address}}  <i (click)="showMapModal(airline.address)" class="fa fa-map-marker" aria-hidden="true"></i></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info" >Description</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+              <label>{{airline.description}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info" >Destinations</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <button (click)="showDestinationsModal(airline.airlineDestinations)" type="button" class="btn btn-link">show all</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 mb-3">
+              <label class="label-info" >Flights</label>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <label><button (click)="showFlightsModal(airline.flights)" type="button" class="btn btn-link">show all</button></label>
+            </div>
+        </div>
+    </div>
+    </div>
