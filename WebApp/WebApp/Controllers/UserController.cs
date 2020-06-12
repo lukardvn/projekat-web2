@@ -60,6 +60,19 @@ namespace WebApp.Controllers
             return Ok(response);
         }
 
+        /*[HttpPut("ChangePassword")] // PUT localhost/User
+        public async Task<IActionResult> ChangePassword(string newPassword)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            ServiceResponse<GetUserDto> response = await _userService.UpdateUser(updatedUser);
+
+            if (response.Data == null)
+                return NotFound(response);
+            return Ok(response);
+        }*/
+
         [HttpDelete("{id}")] //DELETE localhost/User/x
         public async Task<IActionResult> Delete(int id)
         {

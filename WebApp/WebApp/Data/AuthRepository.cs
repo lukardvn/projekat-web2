@@ -76,7 +76,7 @@ namespace WebApp.Data
             return false;
         }
 
-        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
+        public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             /*kreiranjem instance HMACSHA512 klase automatski se generise kljuc
               koji se moze koristiti kao passwordSalt */

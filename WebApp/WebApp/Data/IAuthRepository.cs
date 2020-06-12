@@ -14,5 +14,6 @@ namespace WebApp.Data
         Task<ServiceResponse<string>> Login(string username, string password);
         //returns just true or false
         Task<bool> UserExists(string username);
+        public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt);
     }
 }

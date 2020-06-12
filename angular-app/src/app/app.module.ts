@@ -54,6 +54,9 @@ import { AllAirlinesComponent } from './airlines/all-airlines/all-airlines.compo
 import { DataTablesModule } from 'angular-datatables';
 import { ReservationDetailComponent } from './reservations/reservation-detail/reservation-detail.component';
 import { AnonymousGuard } from './services/auth/anonymous-guard.service';
+import { AgmCoreModule } from '@agm/core';
+import { GoogleMapsModule } from '@angular/google-maps'
+import { AirlineMapComponent } from './airlines/airline-map/airline-map.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +88,8 @@ import { AnonymousGuard } from './services/auth/anonymous-guard.service';
     AddFlightComponent,
     AddDestinationComponent,
     AllAirlinesComponent,
-    ReservationDetailComponent
+    ReservationDetailComponent,
+    AirlineMapComponent
     ],
   exports: [
     PhoneFormatDirective,
@@ -104,7 +108,11 @@ import { AnonymousGuard } from './services/auth/anonymous-guard.service';
     MatDialogModule,
     MatTableModule,
     MatSortModule,
-    DataTablesModule
+    DataTablesModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyASLJKMtrL7p5SdyDdU-Syvft0gf4stec0'
+    }),
+    GoogleMapsModule
   ],
   providers: [
     UserService,
@@ -131,7 +139,8 @@ import { AnonymousGuard } from './services/auth/anonymous-guard.service';
     AirlineDestinationsEditComponent,
     AirlineFlightsEditComponent,
     AddFlightComponent,
-    AddDestinationComponent
+    AddDestinationComponent,
+    AirlineMapComponent
   ]
 })
 export class AppModule { }

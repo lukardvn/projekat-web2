@@ -15,5 +15,6 @@ namespace WebApp.Services.UserService
         Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updatedUser);
         Task<ServiceResponse<List<GetUserDto>>> DeleteUser(int id);
         Task<ServiceResponse<FriendUserDto>> GetUser(int id);
+        Task<ServiceResponse<GetUserDto>> ChangePassword(string newPassword); //ne korisitm
     }
 }

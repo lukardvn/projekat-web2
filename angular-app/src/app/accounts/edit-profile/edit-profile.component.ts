@@ -13,9 +13,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class EditProfileComponent implements OnInit {
   user: any = {};
   form: FormGroup = new FormGroup({});
-  
+  changed = false;
+
   constructor(private userService: UserService,
-              private route: ActivatedRoute,
               private fb: FormBuilder,
               private authService: AuthService) { }
 
@@ -39,7 +39,8 @@ export class EditProfileComponent implements OnInit {
       name: ['', Validators.required],
       surname: ['', Validators.required],
       city: ['', Validators.required],
-      phone: ['', Validators.required]
+      phone: ['', Validators.required],
+      password: ['']
     });
   }
 
@@ -49,7 +50,8 @@ export class EditProfileComponent implements OnInit {
       name: this.user.name,
       surname: this.user.surname,
       city: this.user.city,
-      phone: this.user.phoneNumber
+      phone: this.user.phoneNumber,
+      password: this.user.password
     });
   }
 
@@ -58,7 +60,12 @@ export class EditProfileComponent implements OnInit {
     /*this.user = new User({
       ...this.form.value
     });*/
-    this.userService.updateSingle(this.user).subscribe();
+    this.userService.updateSingle(this.user).subscribe(result => {
+      if (result.success === true)
+        this.changed  = true;
+      else
+        this.changed = false;
+    });
   }
 
   setProperties(){
@@ -66,6 +73,7 @@ export class EditProfileComponent implements OnInit {
     this.user.name = this.form.value.name;
     this.user.surname = this.form.value.surname;
     this.user.city = this.form.value.city;
+    this.user.password = this.form.value.password;
   }
 
   get f() {

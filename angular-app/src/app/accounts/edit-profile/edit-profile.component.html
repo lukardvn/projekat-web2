@@ -57,7 +57,21 @@
           Please enter your city.
         </div>
       </div>
+
+      <div class="mb-3">
+        <label for="password">New password(optional)</label>
+        <input 
+          type="password" 
+          formControlName="password"
+          class="form-control" 
+          id="password" 
+          placeholder="if you don't want to change password, leave this empty">
+        <div class="invalid-feedback">
+          Please enter your new password.
+        </div>
+      </div>
     <hr class="mb-4">
     <button class="btn btn-primary btn-lg btn-block">Save Changes</button>
+    <div *ngIf="changed">Changes were saved.</div>
     </form>
 </div>

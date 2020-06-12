@@ -15,11 +15,13 @@ namespace WebApp.Services.UserService
     {
         private readonly DataContext _context; 
         private readonly IMapper _mapper;
+        private readonly IAuthRepository _authRepository;
 
-        public UserService(DataContext context, IMapper mapper)
+        public UserService(DataContext context, IMapper mapper, IAuthRepository authRepository)
         {
             _context = context;
             _mapper = mapper;
+            _authRepository = authRepository;
         }
 
         public async Task<ServiceResponse<List<GetUserDto>>> AddUser(AddUserDto newUser)
@@ -87,8 +89,6 @@ namespace WebApp.Services.UserService
             return serviceResponse;
         }
 
-
-
         public async Task<ServiceResponse<GetUserDto>> UpdateUser(UpdateUserDto updatedUser)
         {
             ServiceResponse<GetUserDto> serviceResponse = new ServiceResponse<GetUserDto>();
@@ -96,19 +96,41 @@ namespace WebApp.Services.UserService
             {
                 User user = await _context.Users.FirstOrDefaultAsync(u => u.Id == updatedUser.Id);
                 user.Email = updatedUser.Email;
-                user.Password = updatedUser.Password;
-                user.PasswordHash = updatedUser.PasswordHash;
-                user.PasswordSalt = updatedUser.PasswordSalt;
                 user.Name = updatedUser.Name;
                 user.Surname = updatedUser.Surname;
                 user.PhoneNumber = updatedUser.PhoneNumber;
                 user.City = updatedUser.City;
 
+                if (updatedUser.Password != null)
+                {
+                    _authRepository.CreatePasswordHash(updatedUser.Password, out byte[] updatedPassHash, out byte[] updatedPassSalt);
+                    user.PasswordHash = updatedPassHash;
+                    user.PasswordSalt = updatedPassSalt;
+                }
+             
                 _context.Users.Update(user);
                 await _context.SaveChangesAsync();
 
                 serviceResponse.Data = _mapper.Map<GetUserDto>(user);
                 serviceResponse.Message = "Your changes have been saved.";
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetUserDto>> ChangePassword(string newPassword)
+        {
+            ServiceResponse<GetUserDto> serviceResponse = new ServiceResponse<GetUserDto>();
+
+            try
+            {
+                _authRepository.CreatePasswordHash(newPassword, out byte[] updatedPassHash, out byte[] updatedPassSalt);
+
             }
             catch (Exception ex)
             {
