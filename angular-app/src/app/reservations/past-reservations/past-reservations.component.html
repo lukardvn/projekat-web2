@@ -1,0 +1,34 @@
+<div class="center-narrow">
+    <h1>Past reservations</h1>
+    <div class="table-responsive">
+      <table *ngIf="reservations" class="table table-striped table-sm">
+        <thead>
+            <tr>
+              <th>No.</th>
+              <th>Date</th>
+              <th>Origin #1</th>
+              <th>Destination #1</th>
+              <th>Origin #2</th>
+              <th>Destination #2</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let reservation of reservations">
+              <td>{{reservation.id}}</td>
+              <td>{{reservation.departingFlight.takeoffTime | date:'shortDate'}}</td>
+              <td>{{reservation.departingFlight.origin}}</td>
+              <td>{{reservation.departingFlight.destination}}</td>
+              <td *ngIf="reservation.returningFlight">{{reservation.returningFlight.origin}}</td>
+              <td *ngIf="!reservation.returningFlight"></td>
+              <td *ngIf="reservation.returningFlight">{{reservation.returningFlight.destination}}</td>
+              <td *ngIf="!reservation.returningFlight"></td>
+              <td *ngIf="reservation.returningFlight">{{reservation.returningFlight.takeoffTime | date:'shortDate'}}</td>
+              <td *ngIf="!reservation.returningFlight"></td>
+              <td><button class="btn btn-info" [routerLink]="['/list-reservations/', reservation.id]">Details</button></td>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -6,6 +6,14 @@
         <h2 class="mb-3"></h2>   
         <h2 class="mb-3">Flight #1</h2>   
         <div class="row">
+          <div class="col-sm-6 mb-3">
+            <label class="label-info"  for="airline">Airline</label>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <label>{{reservation.departingFlight.airline.name}}</label>
+          </div>
+      </div>
+        <div class="row">
             <div class="col-sm-6 mb-3">
               <label class="label-info"  for="firstName">Origin</label>
             </div>
@@ -45,6 +53,15 @@
               <label>{{reservation.departingFlight.price | currency}}</label>
             </div>
         </div>
+        <div class="row" *ngIf="finished1 === 1">
+          <div class="col-sm-6 mb-3">
+            <label class="label-info">My rating(1-5)</label>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <input *ngIf="!review" class="form-control" placeholder="enter to confirm" #rating (keyup.enter)="onKey($event)" id="rating" name="rating" type="number">
+            <label *ngIf="review">Ostavio review</label>
+          </div>
+        </div>
         <div class="mb-3">
         </div>
         <hr class="mb-4">
@@ -53,7 +70,15 @@
     <div class="col" *ngIf="reservation.returningFlight">
       <div class="col-md-8 order-md-1">
         <h2 class="mb-3"></h2>   
-        <h2 class="mb-3">Flight #2</h2>   
+        <h2 class="mb-3">Flight #2</h2>  
+        <div class="row">
+          <div class="col-sm-6 mb-3">
+            <label class="label-info"  for="airline">Airline</label>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <label>{{reservation.returningFlight.airline.name}}</label>
+          </div>
+      </div> 
         <div class="row">
             <div class="col-sm-6 mb-3">
               <label class="label-info"  for="firstName">Origin</label>
@@ -93,6 +118,15 @@
             <div class="col-sm-6 mb-3">
               <label>{{reservation.returningFlight.price | currency}}</label>
             </div>
+        </div>
+        <div class="row" *ngIf="finished2 === 1">
+          <div class="col-sm-6 mb-3">
+            <label class="label-info">My rating(1-5)</label>
+          </div>
+          <div class="col-sm-6 mb-3">
+            <input *ngIf="!review2" class="form-control" placeholder="enter to confirm" #rating (keyup.enter)="onKey2($event)" id="rating" name="rating" type="number">
+            <label *ngIf="review2">Ostavio review</label>
+          </div>
         </div>
         <div class="mb-3">
         </div>

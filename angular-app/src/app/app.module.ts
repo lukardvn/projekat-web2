@@ -59,6 +59,7 @@ import { GoogleMapsModule } from '@angular/google-maps'
 import { AirlineMapComponent } from './airlines/airline-map/airline-map.component';
 import { AirlineDetailComponent } from './airlines/airline-detail/airline-detail.component';
 import { QuickReservationsComponent } from './airlines/quick-reservations/quick-reservations.component';
+import { PastReservationsComponent } from './reservations/past-reservations/past-reservations.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { QuickReservationsComponent } from './airlines/quick-reservations/quick-
     ReservationDetailComponent,
     AirlineMapComponent,
     AirlineDetailComponent,
-    QuickReservationsComponent
+    QuickReservationsComponent,
+    PastReservationsComponent
     ],
   exports: [
     PhoneFormatDirective,

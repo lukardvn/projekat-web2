@@ -95,7 +95,6 @@ namespace WebApp.Services.ReservationService
 
                 using (var client = new MailKit.Net.Smtp.SmtpClient())
                 {
-
                     client.Connect("smtp.gmail.com", 587, false);
 
                     //SMTP server authentication if needed
@@ -144,7 +143,9 @@ namespace WebApp.Services.ReservationService
             try
             {
                 Reservation reservation = await _context.Reservations.Include(r => r.DepartingFlight).ThenInclude(df => df.Airline)
+                                                                     .Include(r => r.DepartingFlight).ThenInclude(df => df.Reviews).ThenInclude(rv => rv.User)
                                                                      .Include(r => r.ReturningFlight).ThenInclude(rf => rf.Airline)
+                                                                     .Include(r => r.ReturningFlight).ThenInclude(df => df.Reviews).ThenInclude(rv => rv.User)
                                                                      .Where(r => r.Id == id).FirstOrDefaultAsync();
                 if (reservation == null)
                 {
@@ -199,5 +200,7 @@ namespace WebApp.Services.ReservationService
 
             return serviceResponse;
         }
+
+        
     }
 }

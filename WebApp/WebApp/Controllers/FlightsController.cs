@@ -47,5 +47,17 @@ namespace WebApp.Controllers
         {
             return Ok(await _flightService.GetFilteredFlights(filter));
         }
+
+        [HttpPut("ToggleDiscount")]
+        public async Task<IActionResult> ToggleDiscount(Flight flight)
+        {
+            return Ok(await _flightService.ToggleDiscount(flight));
+        }
+
+        [HttpPost("AddReview")]
+        public async Task<IActionResult> AddReview(AddReviewDto review)
+        {
+            return Ok(await _flightService.AddReviewToFlight(review));
+        }
     }
 }

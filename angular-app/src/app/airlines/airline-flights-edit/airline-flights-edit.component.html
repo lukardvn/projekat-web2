@@ -9,6 +9,8 @@
         <th>Takeoff time</th>
         <th>Landing time</th>
         <th>Price per seat</th>
+        <th>Discounted?</th>
+        <th></th>
         </tr>
     </thead>
     <tbody>
@@ -19,6 +21,8 @@
         <td>{{flight.takeoffTime | date:'h:mm a z'}}</td>
         <td>{{flight.landingTime | date:'h:mm a z'}}</td>
         <td>{{flight.price | currency}}</td>
+        <td>{{flight.quickReservation}}</td>
+        <td><button (click)="toggleDiscount(flight)" class="btn btn-info">discount</button></td>
         </tr>
     </tbody>
   </table>

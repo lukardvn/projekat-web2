@@ -15,14 +15,28 @@ import { QuickReservationsComponent } from '../quick-reservations/quick-reservat
 export class AirlineDetailComponent implements OnInit {
   airline;
   quickFlights;
+  avgRating = 0;
   constructor(private airlineService: AirlineService,
               private route: ActivatedRoute,
               private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    let id = this.route.snapshot.paramMap.get('id');  //id "trenutnog" korisnika, cita se iz urla: /edit-profile/X 
+    let id = this.route.snapshot.paramMap.get('id');  
     this.airlineService.getSingle(+id).subscribe(result => {
       this.airline = result.data;
+      let sumRatings = 0;
+      let numOfReviews = 0;
+
+      this.airline.flights.forEach(element => {
+        if (element.reviews.length > 0){
+          numOfReviews = numOfReviews + element.reviews.length;
+          element.reviews.forEach(rev => {
+            sumRatings = sumRatings + rev.rating;
+          });
+        }
+      });
+
+      this.avgRating = sumRatings / numOfReviews;
     })
   }
 

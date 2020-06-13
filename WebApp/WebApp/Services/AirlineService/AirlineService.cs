@@ -177,7 +177,7 @@ namespace WebApp.Services.AirlineService
         {
             ServiceResponse<Airline> serviceResponse = new ServiceResponse<Airline>();
             Airline dbAirline = await _context.Airlines.Include(a => a.AirlineDestinations).ThenInclude(ad => ad.Destination)
-                                                        .Include(a => a.Flights)
+                                                        .Include(a => a.Flights).ThenInclude(f => f.Reviews)
                                               .FirstOrDefaultAsync(u => u.Id == id);
 
             if (dbAirline == null)

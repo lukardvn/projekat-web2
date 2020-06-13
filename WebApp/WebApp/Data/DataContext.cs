@@ -18,6 +18,7 @@ namespace WebApp.Data
         public DbSet<Airline> Airlines { get; set; }
         public DbSet<Destination> Destinations { get; set; }
         public DbSet<AirlineDestination> AirlineDestinations { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             /*modelBuilder.Entity<Friendship>() OVO AKO JE OK DA IMAM 2 LISTE PRIJATELJA U SVAKOM KORISNIKU

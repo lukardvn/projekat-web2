@@ -29,4 +29,14 @@ export class FlightService {
     const body = JSON.stringify(flight);
     return this.http.post(this.baseUrl + this.flightRoute, body, {'headers': this.headers });
   }
+
+  toggleDicount(flight) {
+    const body = JSON.stringify(flight);
+    return this.http.put(this.baseUrl + this.flightRoute + '/ToggleDiscount', body, {'headers': this.headers });
+  }
+
+  addReview(review) {
+    const body = JSON.stringify(review);
+    return this.http.post(this.baseUrl + this.flightRoute + '/AddReview', body, {'headers': this.headers });
+  }
 }

@@ -20,7 +20,7 @@
         <td>{{flight.takeoffTime | date}}</td>
         <td>{{flight.takeoffTime | date:'h:mm a z'}}</td>
         <td>{{flight.landingTime | date:'h:mm a z'}}</td>
-        <td>{{flight.price * 1.2 | currency}}</td>
+        <td>{{flight.price * 1.25 | currency}}</td>
         <td>{{flight.price | currency}}</td>
         <td><button (click)="reserve(flight)">book</button></td>
         </tr>
