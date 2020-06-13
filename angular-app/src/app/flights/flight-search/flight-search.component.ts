@@ -3,6 +3,7 @@ import { FlightService } from './../../services/flight/flight.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ReservationService } from 'src/app/services/reservation/reservation.service';
 
 @Component({
   selector: 'app-flight-search',
@@ -16,7 +17,8 @@ export class FlightSearchComponent implements OnInit {
 
   constructor(private flightService: FlightService,
               private fb: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private reservationService: ReservationService) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -38,6 +40,7 @@ export class FlightSearchComponent implements OnInit {
     this.flightService.getFiltered(this.form.value).subscribe(result => {
       this.flightService.departingFlights = [...result.data.departingFlights];
       this.flightService.returningFlights = [...result.data.returningFlights];
+      
       this.router.navigateByUrl('/departing-flights');
     }, err=>{
        console.log(err.error);

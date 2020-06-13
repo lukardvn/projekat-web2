@@ -1,15 +1,101 @@
-<div class="center-narrow">
+<!--<div class="center-narrow">
     <h1 style="text-align: center;">Home Page</h1>
     <p *ngIf="authService.currentUser">
         Welcome {{authService.currentUser.email}}
     </p>
     <ul>
-        <!--<li *ngIf="authService.isLoggedIn()"><a routerLink="/admin">Admin</a></li>-->
         <li *ngIf="!authService.isLoggedIn()"><a routerLink="/login-form">login</a></li>
         <li *ngIf="!authService.isLoggedIn()"><a routerLink="/signup-form">signup</a></li>
         <li *ngIf="authService.isLoggedIn()"><a routerLink="/edit-profile">profile</a></li>
         <li *ngIf="authService.isLoggedIn()"><a routerLink="/airlines/all">airlines</a></li>
+
         <li *ngIf="authService.isLoggedIn()"><a routerLink="/friends">friends</a></li>
-        <li *ngIf="authService.isLoggedIn() && authService.currentUser.role === 'admin'"><a routerLink="/airlines/my-airline">airline edit TEST</a></li>
+        <li *ngIf="authService.isLoggedIn() && authService.currentUser.role === 'admin'"><a routerLink="/airlines/my-airline">airline</a></li>
     </ul>
-</div>
+</div>--> 
+  <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+    <h1 *ngIf="authService.currentUser" class="display-4">Welcome {{authService.currentUser.email}}!</h1>
+    <p class="lead">My Application's Home Page...</p>
+  </div> 
+  <div  class="container">
+    <div  class="card-deck mb-3 text-center">
+      <div  *ngIf="!authService.isLoggedIn()" class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Sign Up for free</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Access to</li>
+            <li>Best flight searching app</li>
+            <li>In the world</li>
+          </ul>
+          <a routerLink="/signup-form"><button type="button" class="btn btn-lg btn-block btn-outline-primary">Sign up for free</button></a>
+        </div>
+      </div>
+      <div  *ngIf="!authService.isLoggedIn()" class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Already have an account?</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Just login</li>
+            <li>Using username</li>
+            <li>And password</li>
+          </ul>
+          <a routerLink="/login-form"><button type="button" class="btn btn-lg btn-block btn-outline-primary">Login</button></a>
+        </div>
+      </div>
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Airlines</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>List of all</li>
+            <li>Airline companies</li>
+            <li>In our system</li>
+          </ul>
+          <a routerLink="/airlines/all"><button type="button" class="btn btn-lg btn-block btn-outline-primary">Check them out</button></a>
+        </div>
+      </div>
+      <div *ngIf="authService.currentUser" class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Profile page</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>See your profile</li>
+            <li>Change info if you want</li>
+            <li>And save changes</li>
+          </ul>
+          <a routerLink="/edit-profile"><button type="button" class="btn btn-lg btn-block btn-outline-primary ">Edit</button></a>
+        </div>
+      </div>
+      <div *ngIf="authService.currentUser" class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">Friends</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>See your friends</li>
+            <li>Add some</li>
+            <li>Delete some</li>
+          </ul>
+          <a routerLink="/friends"><button type="button" class="btn btn-lg btn-block btn-outline-primary ">Connect...</button></a>
+        </div>
+      </div>
+      <div *ngIf="authService.currentUser && authService.currentUser.role === 'admin'" class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal">My airline</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-unstyled mt-3 mb-4">
+            <li>Made changes to your airline</li>
+            <li>Flights</li>
+            <li>Destinations</li>
+          </ul>
+          <a routerLink="/airlines/my-airline"><button type="button" class="btn btn-lg btn-block btn-outline-primary ">Airline's admin view</button></a>
+        </div>
+      </div>
+    </div>
+  </div>

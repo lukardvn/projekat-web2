@@ -5,6 +5,7 @@ import { ReservationService } from './../../services/reservation/reservation.ser
 import { Component, OnInit } from '@angular/core';
 import { resetFakeAsyncZone } from '@angular/core/testing';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { FriendshipService } from 'src/app/services/friendship/friendship.service';
 
 @Component({
   selector: 'app-reservation-summary',
@@ -24,12 +25,12 @@ export class ReservationSummaryComponent implements OnInit {
     this.returningFlight = this.reservationService.selectedReturningFlight;
   }
 
-  confirmReservation() {  // ovde bi trebalo poslati mejl
+  confirmReservation() {  
     let reservation = new ReservationDto({
       DepartingFlight: this.departingFlight,
       ReturningFlight: this.returningFlight,
       UserId: this.authService.currentUser.nameid
-    })
+    }); //kontam da ovde proverim koliko ljudi, ako ima jos ljudi, posaljem njima ovu rezervaciju i oni prihvataju ili ne
     
     this.reservationService.addReservation(reservation).subscribe(result => {
       console.log(result.data);  //redirect to next page...

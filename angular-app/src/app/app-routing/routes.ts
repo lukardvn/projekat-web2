@@ -35,9 +35,9 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'no-access', component: NoAccessComponent },
 
-    { path: 'flights' , component: FlightSearchComponent},
-    { path: 'departing-flights', component: ListDepartingFlightsComponent },
-    { path: 'returning-flights', component: ListReturningFlightsComponent },
+    { path: 'flights' , component: FlightSearchComponent, canActivate: [AuthGuard]},
+    { path: 'departing-flights', component: ListDepartingFlightsComponent, canActivate: [AuthGuard] },
+    { path: 'returning-flights', component: ListReturningFlightsComponent, canActivate: [AuthGuard] },
     
     //{ path: 'friends/:id/list-reservations', component: FriendReservationsComponent },
     { path: 'list-reservations/:id',  component: ReservationDetailComponent, canActivate: [AuthGuard] },
