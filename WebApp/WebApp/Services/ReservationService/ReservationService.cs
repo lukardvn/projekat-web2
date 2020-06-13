@@ -55,6 +55,38 @@ namespace WebApp.Services.ReservationService
             ServiceResponse<List<Reservation>> serviceResponse = new ServiceResponse<List<Reservation>>();
             try
             {
+                //prvo provera da li ima mesta na letovima
+                Flight dbDeparting = await _context.Flights.FirstOrDefaultAsync(f => f.Id == newReservation.DepartingFlight.Id);
+                if (dbDeparting.SeatsLeft == 0) //nema mesta vise
+                {
+                    serviceResponse.Message = "There's no more seats left at this aircraft.";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
+                }
+                else
+                {
+                    dbDeparting.SeatsLeft--;//samo za jedan, jer nije implementirano za vise korisnika odjednom
+                    _context.Flights.Update(dbDeparting);
+                    await _context.SaveChangesAsync();
+                }
+
+                if (newReservation.ReturningFlight != null)
+                {
+                    Flight dbReturning = await _context.Flights.FirstOrDefaultAsync(f => f.Id == newReservation.ReturningFlight.Id);
+                    if (dbReturning.SeatsLeft == 0) //nema mesta vise
+                    {
+                        serviceResponse.Message = "There's no more seats left at this aircraft.";
+                        serviceResponse.Success = false;
+                        return serviceResponse;
+                    }
+                    else
+                    {
+                        dbReturning.SeatsLeft--;
+                        _context.Flights.Update(dbReturning);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
                 User user = await _context.Users.Include(u => u.Reservations).FirstOrDefaultAsync(u => u.Id == GetUserId());
                 newReservation.User = user;
                 Reservation reservation = _mapper.Map<Reservation>(newReservation);  
@@ -65,6 +97,7 @@ namespace WebApp.Services.ReservationService
 
                 serviceResponse.Data = user.Reservations.ToList();
 
+                #region email
                 //poslati imejl
                 string pattern = @"Reservation details..
                                    Flight #1 : Origin: {0} | Destination: {1} | Takeoff time: {2} | Landing time: {3} | Duration: {4}.
@@ -104,7 +137,7 @@ namespace WebApp.Services.ReservationService
 
                     client.Disconnect(true);
                 }
-
+                #endregion email
             }
             catch (Exception ex)
             {
